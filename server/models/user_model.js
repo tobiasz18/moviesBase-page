@@ -48,5 +48,21 @@ const userSchema = mongoose.Schema({
   // timestamps: true, collection: "user"
 });
 
+userSchema.pre('save', async function(next) {
+    // this === user
+    if(this.isModified('password')) {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(this.password, salt);
+      this.password = hash;
+    }
+    next();
+});
+
+userSchema.statics.emailTaken = async function(email) { 
+  // this reference to the User 
+  const user = await this.findOne({email}); 
+  return !!user;
+}
+
 const User = mongoose.model('User', userSchema);
 module.exports = { User };
