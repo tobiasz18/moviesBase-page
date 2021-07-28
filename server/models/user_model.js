@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-require('dotenv').config()
+require('dotenv').config();
 
 const userSchema = mongoose.Schema({
   email: {

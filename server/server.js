@@ -13,10 +13,11 @@ mongoose.connect(mongoUri, {
   useFindAndModify: false
 });
 
+const users = require('./routes/api/users');
 
 app.use(express.urlencoded({extended: true}));
-app.use(express.json()) // To parse the incoming requests with JSON payloads
-
+app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use('/api/users', users);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server running on port ${port}`))
