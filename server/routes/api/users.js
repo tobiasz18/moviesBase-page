@@ -15,10 +15,11 @@ router.route('/register')
         email: req.body.email,
         password: req.body.password,
       });
-  
+
+      const token = user.generateToken();
       const doc = await user.save();
-      res.cookie('x-access-token','jdbkhsdbh')
-        .status(200).send(doc); 
+      
+      res.cookie('x-access-token', token).status(200).send(doc); 
     } catch (error) {
       res.status(400).json({message: 'Error', error: error});
     }

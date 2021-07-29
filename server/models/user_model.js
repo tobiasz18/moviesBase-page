@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
     trim: true,
     lowercase: true,
     validate(value) {
-      if(!validator.isEmail(value)) {
+      if (!validator.isEmail(value)) {
         throw new Error('Invalid email')
       }
     }
@@ -44,23 +44,30 @@ const userSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   }
-},{
+}, {
   // timestamps: true, collection: "user"
 });
 
-userSchema.pre('save', async function(next) {
-    // this === user
-    if(this.isModified('password')) {
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(this.password, salt);
-      this.password = hash;
-    }
-    next();
+userSchema.pre('save', async function (next) {
+  // this === user
+  if (this.isModified('password')) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(this.password, salt);
+    this.password = hash;
+  }
+  next();
 });
 
-userSchema.statics.emailTaken = async function(email) { 
+userSchema.methods.generateToken = function () {
+  // this === user
+  const userObj = { _id:this._id.toHexString(), email:this.email };
+  const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d'});
+  return token;
+}
+
+userSchema.statics.emailTaken = async function (email) {
   // this reference to the User 
-  const user = await this.findOne({email}); 
+  const user = await this.findOne({ email });
   return !!user;
 }
 
