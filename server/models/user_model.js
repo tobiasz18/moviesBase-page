@@ -60,8 +60,8 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateToken = function () {
   // this === user
-  const userObj = { _id:this._id.toHexString(), email:this.email };
-  const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d'});
+  const userObj = { _id: this._id.toHexString(), email: this.email };
+  const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d' });
   return token;
 }
 
@@ -69,6 +69,12 @@ userSchema.statics.emailTaken = async function (email) {
   // this reference to the User 
   const user = await this.findOne({ email });
   return !!user;
+}
+
+userSchema.methods.comparePassword = async function (myPlaintextPassword) {
+  // this === user
+  const result = bcrypt.compare(myPlaintextPassword, this.password);
+  return result;
 }
 
 const User = mongoose.model('User', userSchema);
