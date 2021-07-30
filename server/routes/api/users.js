@@ -1,4 +1,5 @@
 const express = require('express');
+const { checkLoggedIn } = require('../../middleware/auth');
 const router = express.Router();
 require('dotenv').config();
 
@@ -20,8 +21,8 @@ router.route('/register')
       const doc = await user.save();
 
       res.cookie('x-access-token', generateToken)
-      .status(200)
-      .send(getUserProps(doc));
+        .status(200)
+        .send(getUserProps(doc));
 
     } catch (error) {
       res.status(400).json({ message: 'Error', error: error });
@@ -41,14 +42,20 @@ router.route('/signin')
 
       // generate token
       const token = user.generateToken();
-      
+
       // send response
       res.cookie('x-access-token', token)
-      .status(200).send(getUserProps(user));
+        .status(200).send(getUserProps(user));
 
     } catch (error) {
       res.status(400).json({ message: 'Error', error: error });
     }
+  });
+
+router.route("/profile")
+  .get(checkLoggedIn, async (req, res) => {
+    console.log(req.user)
+    res.status(200).send('siema')
   });
 
 const getUserProps = (user) => {
