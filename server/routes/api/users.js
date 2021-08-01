@@ -1,5 +1,6 @@
 const express = require('express');
 const { checkLoggedIn } = require('../../middleware/auth');
+const { grantAccess } = require('../../middleware/roles');
 const router = express.Router();
 require('dotenv').config();
 
@@ -53,7 +54,7 @@ router.route('/signin')
   });
 
 router.route("/profile")
-  .get(checkLoggedIn, async (req, res) => {
+  .get(checkLoggedIn, grantAccess('action','resource'), async (req, res) => {
     console.log(req.user)
     res.status(200).send('siema')
   });

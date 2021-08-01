@@ -4,8 +4,8 @@
   "description": "full stack mern project page ",
   "main": "index.js",
   "scripts": {
-    "server":"nodemon server/server.js",
-    "client":"npm start --prefix client",
+    "server": "nodemon server/server.js",
+    "client": "npm start --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently  \"npm run server\"  \"npm run client\" "
   },
