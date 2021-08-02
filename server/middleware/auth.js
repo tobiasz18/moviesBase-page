@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/user_model");
 require('dotenv').config();
 
-
+// server.js global middleware
 exports.checkToken = async (req, res, next) => {
   try {
     if (req.headers["x-access-token"]) {
@@ -11,7 +11,7 @@ exports.checkToken = async (req, res, next) => {
       const { _id, email, exp } = jwt.verify(accessToken, process.env.DB_SECRET);
 
       res.locals.userData = await User.findById(_id);
-    
+
       next();
     } else {
       next();
@@ -21,9 +21,10 @@ exports.checkToken = async (req, res, next) => {
   }
 }
 
+// /routes/api/users middleware
 exports.checkLoggedIn = (req, res, next) => {
   const user = res.locals.userData;
-  if(!user) return res.status(401).json({error: "No user. Please log in"});
+  if (!user) return res.status(401).json({ error: "No user. Please log in" });
   req.user = user;
   next();
 }

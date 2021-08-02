@@ -52,11 +52,20 @@ router.route('/signin')
       res.status(400).json({ message: 'Error', error: error });
     }
   });
-
+// Test accescontrol npm,
 router.route("/profile")
-  .get(checkLoggedIn, grantAccess('action','resource'), async (req, res) => {
-    console.log(req.user)
-    res.status(200).send('siema')
+  .get(checkLoggedIn, grantAccess('readOwn','profile'), async (req, res) => {
+    try {
+      const permission = res.locals.permission;
+
+      const user = await User.findById(req.user._id);  
+      if (!user) return res.status(400).json({ message: "bad user" });
+
+      res.status(200).json(permission.filter(user._doc));
+      
+    } catch (error) {
+      return res.status(400).send(error);
+    }   
   });
 
 const getUserProps = (user) => {
