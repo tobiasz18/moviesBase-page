@@ -21,6 +21,8 @@ router.route('/register')
       const generateToken = user.generateToken();
       const doc = await user.save();
 
+      /*----------send email----------*/
+
       res.cookie('x-access-token', generateToken)
         .status(200)
         .send(getUserProps(doc));
@@ -80,18 +82,44 @@ router.route("/profile")
         },
         { new: true }
       );
-      if(!user) return res.json({message: 'User not found'});
+      if (!user) return res.json({ message: 'User not found' });
 
       res.status(200).json(getUserProps(user));
     } catch (error) {
-      res.status(400).json({message: 'Problem updating', error: error});
+      res.status(400).json({ message: 'Problem updating', error: error });
     }
   })
 
 router.route('/isauth')
-.get(checkLoggedIn, async (req, res) => {
-  res.status(200).send(getUserProps(req.user))
-})
+  .get(checkLoggedIn, async (req, res) => {
+    res.status(200).send(getUserProps(req.user))
+  })
+
+router.route('/update_email')
+  .patch(checkLoggedIn, grantAccess('updateOwn', 'profile'), async (req, res) => {
+    try {
+      if (await User.emailTaken(req.body.newEmail)) {
+        return res.status(400).json({ message: 'Sorry email taken' });
+      }
+      const user = await User.findOneAndUpdate(
+        { _id: req.user._id, email: req.body.email },
+        {
+          "$set": {
+            email: req.body.newEmail,
+          }
+        },
+        { new: true }
+      );
+      if (!user) return res.json({ message: 'User not found' });
+
+      const token = user.generateToken();
+      res.cookie('x-access-token', token)
+      .status(200).send({email: user.email});
+
+    } catch (error) {
+      return res.status(400).json({ message: 'Problem updating', error: error });
+    }
+  });
 
 const getUserProps = (user) => {
   return {
