@@ -88,6 +88,11 @@ router.route("/profile")
     }
   })
 
+router.route('/isauth')
+.get(checkLoggedIn, async (req, res) => {
+  res.status(200).send(getUserProps(req.user))
+})
+
 const getUserProps = (user) => {
   return {
     _id: user.id,
