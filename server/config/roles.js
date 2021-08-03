@@ -7,12 +7,18 @@ let grantsObject = {
       'read:any': ['*'],
       'update:any': ['*'],
       'delete:any': ['*']
+    },
+    article: {
+      'create:any': ['*'],
+      'read:any': ['*'],
+      'update:any': ['*'],
+      'delete:any': ['*']
     }
   },
   user: {
     profile: {
       'read:own': ['*', '!password', '!_id', '!date'],
-      'update:own': ['*'], 
+      'update:own': ['*'],
     }
   }
 };

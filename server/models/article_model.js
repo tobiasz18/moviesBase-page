@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 require('dotenv').config();
 
 const articleSchema = mongoose.Schema({
   title: {
     type: String,
-    maxLenght: 100,
+    maxLength: 100,
     required: [true, 'You need a title']
   },
   content: {
@@ -14,7 +15,7 @@ const articleSchema = mongoose.Schema({
   excerpt: {
     type: String,
     required: [true, 'Please add an excerpt'],
-    maxLenght: 500
+    maxLength: 500
   },
   score: {
     type: Number,
@@ -33,19 +34,19 @@ const articleSchema = mongoose.Schema({
       validator: function (array) {
         return array.length >= 2;
       },
-      message: "You must add at least three"
-    },
-    status: {
-      type: String,
-      required: true,
-      enum: ['draft', 'public'],
-      default: 'draft',
-      index: true
-    },
-    date: {
-      type: Date,
-      default: Date.now
-    }  
+      message: "you must add at least two"
+    }
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: ['draft', 'public'],
+    default: 'draft',
+    index: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
