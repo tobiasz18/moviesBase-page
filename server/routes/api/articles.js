@@ -77,4 +77,19 @@ router.route('/admin/articles/:id')
     }
   })
 
+// get article without auth
+router.route('/getById/:id')
+  .get(async (req, res) => {
+    try {
+      const _id = req.params.id;
+      const article = await Article.find({ _id: _id, status: 'public' });
+      if (!article || article.length === 0) {
+        return res.status(400).json({ message: "Article not found" });
+      }
+      res.status(200).json(article);
+    } catch (error) {
+      return res.status(400).send({ message: 'Error fetching article', error });
+    }
+  })
+
 module.exports = router;
