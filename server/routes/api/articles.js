@@ -92,4 +92,13 @@ router.route('/getById/:id')
     }
   })
 
+router.route('/loadmore')
+  .post(async (req, res) => {
+      try {
+        
+      } catch (error) {
+        
+      }
+  })
+
 module.exports = router;
