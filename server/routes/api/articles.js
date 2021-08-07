@@ -104,27 +104,32 @@ router.route('/loadmore')
         .skip(sortArgs.skip)
         .limit(sortArgs.limit)
 
-        res.status(200).json(articles)
+      res.status(200).json(articles)
     } catch (error) {
-      res.status(400).json({message: 'Error fetching articles', error});
+      res.status(400).json({ message: 'Error fetching articles', error });
     }
   });
 
-  router.route("/admin/paginate")
-  .post(checkLoggedIn, grantAccess('readAny', 'articles'), async(req, res) => {
+router.route("/admin/paginate")
+  .post(checkLoggedIn, grantAccess('readAny', 'articles'), async (req, res) => {
     try {
+
+      // let aggregateQuery = Article.aggregate([
+      //   { $match: { status: "public" } }
+      // ])
+
       const limit = req.body.limit ? req.body.limit : 5;
       const aggQuery = Article.aggregate();
       const options = {
         page: req.body.page,
-        sort: {_id: 'desc'},
+        sort: { _id: 'desc' },
         limit
       }
       const articles = await Article.aggregatePaginate(aggQuery, options);
       res.status(200).json(articles);
 
     } catch (error) {
-      res.status(400).json({message: 'Error paginate', error});
+      res.status(400).json({ message: 'Error paginate', error });
     }
   });
 
