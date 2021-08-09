@@ -8,16 +8,21 @@ import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
 import Navbar from "./components/navigation/Navbar";
 
+import Container from "@material-ui/core/Container";
+import MainLayout from "./hoc/mainLayout";
+
 const Routes = () => {
   return (
     <Router>
       <Navbar />
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-      
+      <MainLayout>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </MainLayout>
+
       <GoogleFontLoader
         fonts={[
           {
