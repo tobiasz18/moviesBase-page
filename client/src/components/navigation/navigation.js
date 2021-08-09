@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import DehazeIcon from '@material-ui/icons/Dehaze';
-import Drawer from '@material-ui/core/Drawer';
-import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Divider } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import LockIcon from '@material-ui/icons/Lock';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+// material UI icons
+import HomeIcon from '@material-ui/icons/Home'
+import DehazeIcon from '@material-ui/icons/Dehaze'
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
+import LockIcon from '@material-ui/icons/Lock'
+// core components
+import { 
+  Divider, 
+  Drawer, 
+  TextField, 
+  List, 
+  ListItem, 
+  ListItemIcon, 
+  ListItemText } from '@material-ui/core'
 
 const Navigation = () => {
   const [state, setState] = useState(false)
@@ -63,7 +66,6 @@ const Navigation = () => {
             <ListItemText primary="Dashboard" />
           </ListItem>
         </List>
-
       </Drawer>
     </>
   )
