@@ -6,17 +6,18 @@ import {
 } from "react-router-dom";
 import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
+import Navbar from "./components/navigation/Navbar";
 
 const Routes = () => {
   return (
     <Router>
-
+      <Navbar />
       <Switch>
         <Route path="/">
           <Home />
         </Route>
       </Switch>
-
+      
       <GoogleFontLoader
         fonts={[
           {
@@ -34,4 +35,4 @@ const Routes = () => {
   )
 }
 
-export default Routes;
+export default Routes

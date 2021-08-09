@@ -1,0 +1,37 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #424242;
+}
+
+a, a:hover {
+  color: inherit;
+}
+
+.navbar {
+  border-bottom: 5px solid #dbdbdb;
+  background: white;
+  padding: 7px 14px;
+}
+
+.navbar.dash_layout {
+  position:relative !important;
+}
+
+/* nav .nav-link {
+  color: #17a2b8;
+  font-weight: bold;
+} */
+
+.drawer_btn {
+  color: #0062cc;
+  cursor: pointer;
+}
+
+.app_container {
+  margin-top: 80px;
+}
+
+.root_loader {
+  text-align: center;
+  margin-top: 200px;
+}
