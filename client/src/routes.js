@@ -7,8 +7,6 @@ import {
 import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
 import Navbar from "./components/navigation/Navbar";
-
-import Container from "@material-ui/core/Container";
 import MainLayout from "./hoc/mainLayout";
 
 const Routes = () => {

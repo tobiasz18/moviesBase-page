@@ -3,12 +3,12 @@ import Grid from '@material-ui/core/Grid';
 //import { makeStyles } from '@material-ui/core/styles';
 import ArticleCard from '../../utils/articleCard';
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticleAsync } from '../../store/actions';
+import { getArticleAsync } from '../../store/actions/articles_actions';
 
 const initialState = {
   sortBy: "_id",
   order: "desc",
-  limit: 8,
+  limit: 5,
   skip: 0
 }
 
@@ -31,22 +31,24 @@ const Home = () => {
     <div>
       <div>Carusel</div>
       <Grid container spacing={2} className="article_card">
-        <Grid key={1} item xs={12} sm={6} lg={3}>
-          <ArticleCard key={1} />
-        </Grid>
-        <Grid key={2} item xs={12} sm={6} lg={3}>
-          <ArticleCard key={1} />
-        </Grid>
-        <Grid key={3} item xs={12} sm={6} lg={3}>
-          <ArticleCard key={1} />
-        </Grid>
-        <Grid key={4} item xs={12} sm={6} lg={3}>
-          <ArticleCard key={1} />
-        </Grid>
-        <Grid key={6} item xs={12} sm={6} lg={3}>
-          <ArticleCard key={1} />
-        </Grid>
+        {articles && articles.articles ?
+          articles.articles.map((item) => {
+            return (
+              <Grid key={item._id} item xs={12} sm={6} lg={3}>
+                <ArticleCard key={item._id} article={item} />
+              </Grid>
+            )
+          }) : null
+        }
       </Grid>
+      <button onClick={() => {
+        const skip = sort.skip + sort.limit
+
+        dispatch(getArticleAsync({ ...sort, skip: skip })) 
+        setSort({ skip: skip })
+      }}>
+        Load more
+      </button>
     </div>
   )
 }

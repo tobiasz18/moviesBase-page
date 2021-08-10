@@ -11,7 +11,7 @@ import {
   Button
 } from '@material-ui/core'
 
-const ArticleCard = () => {
+const ArticleCard = ({ article }) => {
   return (
     <Card>
       <CardMedia
@@ -21,20 +21,17 @@ const ArticleCard = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="h5">
-          some title
+          {article.title}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        <Typography variant="body2" /*color="textSecondary"*/ component="p">
+          {article.excerpt}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <Button size="small" color="primary" component={Link} to={`/article/id`}>
+        <Button size="small" color="primary" component={Link} to={`/article/${article._id}`}>
           View article
         </Button>
       </CardActions>
