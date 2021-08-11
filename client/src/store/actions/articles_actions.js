@@ -17,7 +17,7 @@ export const getArticleAsync = (sort) => {
       dispatch(articles.getArticles(newState))
 
     } catch (error) {
-      console.log(error)
+      dispatch(articles.errorGlobal('Ups something wrong with articles load'))
     }
   }
 }

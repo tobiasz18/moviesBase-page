@@ -6,13 +6,13 @@ import {
 } from "react-router-dom";
 import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
-import Navbar from "./components/navigation/Navbar";
+import Header from "./components/navigation/header";
 import MainLayout from "./hoc/mainLayout";
 
 const Routes = () => {
   return (
     <Router>
-      <Navbar />
+      <Header />
       <MainLayout>
         <Switch>
           <Route path="/">

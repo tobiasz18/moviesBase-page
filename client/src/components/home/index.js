@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { useEffect, useReducer } from 'react'
+import Grid from '@material-ui/core/Grid'
 //import { makeStyles } from '@material-ui/core/styles';
-import ArticleCard from '../../utils/articleCard';
+import ArticleCard from '../../utils/articleCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticleAsync } from '../../store/actions/articles_actions';
+import { getArticleAsync } from '../../store/actions/articles_actions'
+import { successGlobal } from '../../store/actions'
 
 const initialState = {
   sortBy: "_id",
@@ -13,7 +14,7 @@ const initialState = {
 }
 
 const Home = () => {
-  const [sort, setSort] = useReducer(
+  const [sort, sortDispatch] = useReducer(
     (state, action) => ({ ...state, ...action }), initialState
   ) // action as newState in this case
   const articles = useSelector((state) => state.articles)
@@ -43,9 +44,11 @@ const Home = () => {
       </Grid>
       <button onClick={() => {
         const skip = sort.skip + sort.limit
-
-        dispatch(getArticleAsync({ ...sort, skip: skip })) 
-        setSort({ skip: skip })
+        dispatch(getArticleAsync({ ...sort, skip: skip }))
+        sortDispatch({ skip: skip })
+        // showToast('SUCCESS', 'siema')
+        dispatch(successGlobal('succes loading'))
+   
       }}>
         Load more
       </button>
@@ -64,14 +67,18 @@ export default Home
 // const initialState = {count: 0};
 
 // function reducer(state, action) {
-//   switch (action.type) {
-//     case 'increment':
-//       return {count: state.count + 1};
-//     case 'decrement':
-//       return {count: state.count - 1};
-//     default:
-//       throw new Error();
-//   }
+//   
+//   return {...state, ...action}   {sortBy: "_id", order: "desc", limit: 5, acion = ...{skip: skip}}
+/*
+ //   switch (action.type) {
+ //     case 'increment':
+ //       return {count: state.count + 1};
+ //     case 'decrement':
+ //       return {count: state.count - 1};
+ //     default:
+ //       throw new Error();
+ //   }
+*/
 // }
 
 // function Counter() {
