@@ -1,10 +1,9 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 //import { makeStyles } from '@material-ui/core/styles';
 import ArticleCard from '../../utils/articleCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticleAsync } from '../../store/actions/articles_actions'
-import { successGlobal } from '../../store/actions'
 
 const initialState = {
   sortBy: "_id",
@@ -13,10 +12,12 @@ const initialState = {
   skip: 0
 }
 
+const reducer = (state, action) => {
+  return { ...state, ...action }
+}
+
 const Home = () => {
-  const [sort, sortDispatch] = useReducer(
-    (state, action) => ({ ...state, ...action }), initialState
-  ) // action as newState in this case
+  const [sort, sortDispatch] = useReducer(reducer, initialState)
   const articles = useSelector((state) => state.articles)
   const dispatch = useDispatch()
 
@@ -46,9 +47,7 @@ const Home = () => {
         const skip = sort.skip + sort.limit
         dispatch(getArticleAsync({ ...sort, skip: skip }))
         sortDispatch({ skip: skip })
-        // showToast('SUCCESS', 'siema')
-        dispatch(successGlobal('succes loading'))
-   
+
       }}>
         Load more
       </button>
@@ -59,35 +58,12 @@ const Home = () => {
 export default Home
 
 
+// Alternative to useReducer() is useState() 
 
-
-
-
-
-// const initialState = {count: 0};
-
-// function reducer(state, action) {
-//   
-//   return {...state, ...action}   {sortBy: "_id", order: "desc", limit: 5, acion = ...{skip: skip}}
+// EXAMPLE::::::::
 /*
- //   switch (action.type) {
- //     case 'increment':
- //       return {count: state.count + 1};
- //     case 'decrement':
- //       return {count: state.count - 1};
- //     default:
- //       throw new Error();
- //   }
-*/
-// }
-
-// function Counter() {
-//   const [state, dispatch] = useReducer(reducer, initialState);
-//   return (
-//     <>
-//       Count: {state.count}
-//       <button onClick={() => dispatch({type: 'decrement'})}>-</button>
-//       <button onClick={() => dispatch({type: 'increment'})}>+</button>
-//     </>
-//   );
-// }
+  const [sort, sortDispatch] = useState(initialState);
+  setState(prevState => {
+   return { ...prevState, skip: skip };
+  }); */
+// https://reactjs.org/docs/hooks-reference.html#usestate

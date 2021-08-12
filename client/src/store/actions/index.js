@@ -1,14 +1,15 @@
-import { 
+import {
+  CLEAR_NOTIFICATION,
   ERROR_GLOBAL,
-  GET_ARTICLES, 
+  GET_ARTICLES,
   SUCCESS_GLOBAL
 } from "../types";
 
 //----- ARTICLES -----//
 
 export const getArticles = (sort) => ({
-    type: GET_ARTICLES,
-    payload: sort
+  type: GET_ARTICLES,
+  payload: sort
 })
 
 //----- NOTIFICATIONS -----//
@@ -21,3 +22,10 @@ export const successGlobal = (msg) => ({
   type: SUCCESS_GLOBAL,
   payload: msg
 })
+export const clearNotification = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: CLEAR_NOTIFICATION
+    })
+  }
+}

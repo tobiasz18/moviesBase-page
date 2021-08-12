@@ -3,6 +3,8 @@ import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
+// load default a bunch of articles and 
+// set listening on button to load-more a bunch of article
 export const getArticleAsync = (sort) => {
   return async (dispatch, getState) => {
     try {
