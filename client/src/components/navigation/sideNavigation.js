@@ -7,6 +7,10 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 import LockIcon from '@material-ui/icons/Lock'
+
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ContactsIcon from '@material-ui/icons/Contacts';
 // core components
 import { 
   Divider, 
@@ -40,19 +44,19 @@ const Navigation = () => {
           </ListItem>
           <ListItem button component={Link} to="/contact" onClick={() => setState(false)}>
             <ListItemIcon>
-              <PermContactCalendarIcon color="primary" />
+              <ContactsIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Contact" />
           </ListItem>
           <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
             <ListItemIcon>
-              <MeetingRoomIcon color="primary" />
+              <LockOpenIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Sign in" />
           </ListItem>
           <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
             <ListItemIcon>
-              <LockIcon color="primary" />
+              <ExitToAppIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Sign out" />
           </ListItem>
@@ -63,12 +67,14 @@ const Navigation = () => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Dashboard"  />
           </ListItem>
         </List>
       </Drawer>
     </>
   )
 }
+
+
 
 export default Navigation;

@@ -23,6 +23,7 @@
     "mongoose": "^5.11.8",
     "mongoose-aggregate-paginate-v2": "^1.0.42",
     "nodemailer": "^6.4.17",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "yup": "^0.32.9"
   }
 }

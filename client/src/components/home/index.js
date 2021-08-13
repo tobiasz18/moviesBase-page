@@ -28,7 +28,6 @@ const Home = () => {
     }
   }, [dispatch, articles])
 
-
   return (
     <div>
       <div>Carusel</div>

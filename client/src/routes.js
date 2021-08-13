@@ -8,6 +8,7 @@ import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
 import Header from "./components/navigation/header";
 import MainLayout from "./hoc/mainLayout";
+import Auth from "./components/auth";
 
 const Routes = () => {
   return (
@@ -15,8 +16,11 @@ const Routes = () => {
       <Header />
       <MainLayout>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/auth">
+            <Auth />
           </Route>
         </Switch>
       </MainLayout>
