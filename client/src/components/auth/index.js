@@ -1,11 +1,32 @@
 import React, { useState } from 'react'
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { makeStyles } from '@material-ui/core/styles'
+import { Container, Typography, CssBaseline, Avatar, Button, TextField } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const Auth = () => {
-
+  const classes = useStyles();
   const [register, setRegister] = useState(false)
 
   const formik = useFormik({
@@ -31,52 +52,58 @@ const Auth = () => {
   })
 
   return (
-    <div>
-      <h1>Sign in</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" >
+          {register ? 'Sign in' : 'Register'}
+        </Typography>
+        <form className={classes.form} onSubmit={formik.handleSubmit}>
           <TextField
+            fullWidth
+            margin="normal"
             label="Email Address"
             name="email"
+            autoComplete="email"
+            autoFocus
             {...formik.getFieldProps('email')}
             {...errorHelper(formik, 'email')}
           />
-        </div>
-
-        <div>
           <TextField
-            label="password"
+            fullWidth
+            margin="normal"
+            label="Enter your password"
             name="password"
+            type="password"
             {...formik.getFieldProps('password')}
             {...errorHelper(formik, 'password')}
           />
-        </div>
-
-        <div>
           <Button
-            className="mt-3"
+            fullWidth
+            color="primary"
+            className={classes.submit}
             type="submit"
             variant="contained">
             {!register ? 'Register' : 'Login'}
           </Button>
-        </div>
-
-        <div>
           <Button
-            className="mt-3"
-            type="submit"
-            color="primary"
+            variant="outlined"
+            fullWidth
+            color="secondary"
+            className={classes.submit}
             size="small"
             onClick={() => setRegister(!register)}
-            >
-           Want to ? {register ? 'Register' : 'Sign in'}
+          >
+            Want to {register ? 'Register' : 'Sign in'} ?
           </Button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </Container>
   )
 }
-
 
 export default Auth
 
