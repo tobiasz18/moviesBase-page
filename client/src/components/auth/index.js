@@ -42,9 +42,17 @@ const Auth = () => {
         .required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
-      alert(JSON.stringify(values, null, 2));
+      handleSubmit(values)
     },
   })
+
+  const handleSubmit = (values) => {
+    if (register) {
+      // register
+    } else {
+      // login
+    }
+  }
 
   const errorHelper = (formik, name) => ({
     error: formik.errors[name] && formik.touched[name] ? true : false,
@@ -63,12 +71,10 @@ const Auth = () => {
         </Typography>
         <form className={classes.form} onSubmit={formik.handleSubmit}>
           <TextField
+            label="Email Address"
             fullWidth
             margin="normal"
-            label="Email Address"
             name="email"
-            autoComplete="email"
-            autoFocus
             {...formik.getFieldProps('email')}
             {...errorHelper(formik, 'email')}
           />

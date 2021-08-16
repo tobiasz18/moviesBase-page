@@ -1,4 +1,5 @@
 import {
+  AUTH_USERS,
   CLEAR_NOTIFICATION,
   ERROR_GLOBAL,
   GET_ARTICLES,
@@ -29,3 +30,10 @@ export const clearNotification = () => {
     })
   }
 }
+
+//----- USERS -----//
+
+export const authUser = (user) => ({
+  type: AUTH_USERS,
+  payload: user
+})
