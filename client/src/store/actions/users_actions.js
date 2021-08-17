@@ -15,10 +15,10 @@ export const registerUser = (values) => {
         data: user.data,
         auth: true
       }))
-      dispatch(articles.successGlobal('Welcome!!, check your email and validate your account.'))
+      dispatch(users.successGlobal('Welcome!!, check your email and validate your account.'))
     } catch (error) {
       console.log(error.response.data.message)
-      dispatch(articles.errorGlobal('Oops'))
+      dispatch(users.errorGlobal('Oops'))
     }
   }
 }

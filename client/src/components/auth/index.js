@@ -4,30 +4,14 @@ import * as Yup from 'yup'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Typography, CssBaseline, Avatar, Button, TextField } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser } from '../../store/actions/users_actions'
 
 const Auth = () => {
   const classes = useStyles();
   const [register, setRegister] = useState(false)
+  const users = useSelector(state => state.users)
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +32,8 @@ const Auth = () => {
 
   const handleSubmit = (values) => {
     if (register) {
-      // register
+        dispatch(registerUser(values))
+        console.log('hi')
     } else {
       // login
     }
@@ -67,7 +52,7 @@ const Auth = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" >
-          {register ? 'Sign in' : 'Register'}
+          {register ? 'Register' : 'Sign in'}
         </Typography>
         <form className={classes.form} onSubmit={formik.handleSubmit}>
           <TextField
@@ -93,7 +78,7 @@ const Auth = () => {
             className={classes.submit}
             type="submit"
             variant="contained">
-            {!register ? 'Register' : 'Login'}
+            {register ? 'Register' : 'Login'}
           </Button>
           <Button
             variant="outlined"
@@ -103,13 +88,34 @@ const Auth = () => {
             size="small"
             onClick={() => setRegister(!register)}
           >
-            Want to {register ? 'Register' : 'Sign in'} ?
+            Want to {!register ? 'Register' : 'Sign in'} ?
           </Button>
         </form>
       </div>
     </Container>
   )
 }
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
 
 export default Auth
 
