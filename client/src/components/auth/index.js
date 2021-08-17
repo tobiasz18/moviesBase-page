@@ -6,11 +6,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Container, Typography, CssBaseline, Avatar, Button, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../store/actions/users_actions'
+import { useEffect } from 'react'
 
-const Auth = () => {
+const Auth = (props) => {
   const classes = useStyles();
   const [register, setRegister] = useState(false)
-  const users = useSelector(state => state.users)
+  const notifications = useSelector(state => state.notifications)
   const dispatch = useDispatch()
 
   const formik = useFormik({
@@ -43,6 +44,11 @@ const Auth = () => {
     error: formik.errors[name] && formik.touched[name] ? true : false,
     helperText: formik.errors[name] && formik.touched[name] ? formik.errors[name] : null
   })
+
+  useEffect(() => { 
+    if(notifications && notifications.success)
+    props.history.push('/dashboard')
+  }, [notifications, props.history])
 
   return (
     <Container component="main" maxWidth="xs">

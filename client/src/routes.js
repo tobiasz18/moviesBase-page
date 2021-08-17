@@ -16,12 +16,8 @@ const Routes = () => {
       <Header />
       <MainLayout>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/auth">
-            <Auth />
-          </Route>
+          <Route path="/auth" component={Auth} />
+          <Route path="/" component={Home} />
         </Switch>
       </MainLayout>
 
