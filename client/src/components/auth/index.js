@@ -9,7 +9,7 @@ import { registerUser, signInUser } from '../../store/actions/users_actions'
 import { useEffect } from 'react'
 
 const Auth = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
   const [register, setRegister] = useState(false)
   const notifications = useSelector(state => state.notifications)
   const dispatch = useDispatch()

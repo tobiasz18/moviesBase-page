@@ -1,5 +1,6 @@
 import * as users from './index'
 import axios from 'axios'
+import { getAuthHeader } from '../../utils/tools'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
@@ -34,6 +35,18 @@ export const signInUser = (values) => {
     }
   }
 }
+
+export const isAuthUser = () => {
+  return async (dispatch) => {
+    try {
+      const user = await axios.get(`api/users/isauth`, getAuthHeader)
+      dispatch(users.authUser({ data: user.data, auth: true }))
+    } catch (error) {
+      dispatch(users.authUser({ data: {}, auth: false }))
+    }
+  }
+}
+
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,18 +9,37 @@ import Home from "./components/home";
 import Header from "./components/navigation/header";
 import MainLayout from "./hoc/mainLayout";
 import Auth from "./components/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { isAuthUser } from "./store/actions/users_actions";
+import { Loader } from "./utils/loader";
+
 
 const Routes = () => {
+  const [loading, setLoading] = useState(true)
+  const state = useSelector(state => state.users)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(isAuthUser())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (state.auth !== null) {
+      setLoading(false)
+    }
+  }, [state.auth])
+
   return (
     <Router>
       <Header />
-      <MainLayout>
-        <Switch>
-          <Route path="/auth" component={Auth} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </MainLayout>
-
+      {loading ? <Loader /> :
+        <MainLayout>
+          <Switch>
+            <Route path="/auth" component={Auth} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </MainLayout>
+      }
       <GoogleFontLoader
         fonts={[
           {
