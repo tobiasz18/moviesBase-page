@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Typography, CssBaseline, Avatar, Button, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../store/actions/users_actions'
+import { registerUser, signInUser } from '../../store/actions/users_actions'
 import { useEffect } from 'react'
 
 const Auth = (props) => {
@@ -34,9 +34,9 @@ const Auth = (props) => {
   const handleSubmit = (values) => {
     if (register) {
         dispatch(registerUser(values))
-        console.log('hi')
+        console.log('register')
     } else {
-      // login
+     dispatch(signInUser(values))
     }
   }
 
