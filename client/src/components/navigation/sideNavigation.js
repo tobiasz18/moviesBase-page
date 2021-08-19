@@ -21,9 +21,9 @@ import {
   ListItemIcon, 
   ListItemText } from '@material-ui/core'
 
-const Navigation = () => {
+const Navigation = ({signOutUser}) => {
   const [state, setState] = useState(false)
-
+ 
   return (
     <>
       <DehazeIcon
@@ -54,7 +54,12 @@ const Navigation = () => {
             </ListItemIcon>
             <ListItemText primary="Sign in" />
           </ListItem>
-          <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
+          <ListItem 
+            button 
+            onClick={() => {
+              setState(false)
+              signOutUser()
+            }}>
             <ListItemIcon>
               <ExitToAppIcon color="primary" />
             </ListItemIcon>

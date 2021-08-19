@@ -4,6 +4,9 @@ import Navigation from './sideNavigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { showToast } from '../../utils/tools'
 import { clearNotification } from '../../store/actions'
+import { signOut } from '../../store/actions/users_actions'
+
+
 
 const Header = () => {
   const notifications = useSelector((state) => state.notifications)
@@ -22,13 +25,20 @@ const Header = () => {
     }
   }, [notifications, dispatch])
 
+
+  const signOutUser = () => {
+    dispatch(signOut())
+    alert('logout')
+  }
+  
+
   return (
     <nav className="navbar" >
       <Link style={{ fontFamily: "Fredoka One" }} to="/"
         className="navbar-brand d-flex align-items-center">
         FilmsBase
       </Link>
-      <Navigation />
+      <Navigation signOutUser={signOutUser}/>
     </nav>
   )
 }

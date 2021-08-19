@@ -1,6 +1,6 @@
 import * as users from './index'
 import axios from 'axios'
-import { getAuthHeader } from '../../utils/tools'
+import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
@@ -47,6 +47,12 @@ export const isAuthUser = () => {
   }
 }
 
+export const signOut = () => {
+  return (dispatch) => {
+    removeTokenCookie()
+    dispatch(users.signOutUser())
+  }
+}
 
 
 
