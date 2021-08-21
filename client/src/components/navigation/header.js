@@ -8,7 +8,7 @@ import { signOut } from '../../store/actions/users_actions'
 
 
 
-const Header = () => {
+const Header = (props) => {
   const notifications = useSelector((state) => state.notifications)
   const dispatch = useDispatch()
 
@@ -28,6 +28,7 @@ const Header = () => {
 
   const signOutUser = () => {
     dispatch(signOut())
+    props.history.push('/');
     alert('logout')
   }
   
