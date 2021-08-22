@@ -32,9 +32,8 @@ const Header = (props) => {
     alert('logout')
   }
   
-
   return (
-    <nav className="navbar" >
+    <nav className="navbar" style={{zIndex: 1600}}>
       <Link style={{ fontFamily: "Fredoka One" }} to="/"
         className="navbar-brand d-flex align-items-center">
         FilmsBase

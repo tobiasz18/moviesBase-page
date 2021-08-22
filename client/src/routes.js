@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { isAuthUser } from "./store/actions/users_actions";
 import { Loader } from "./utils/loader";
 import Dashboard from "./components/dashboard/index";
+import Profile from "./components/dashboard/profile";
+import Articles from "./components/dashboard/articles";
 
 
 const Routes = () => {
@@ -36,6 +38,8 @@ const Routes = () => {
       {loading ? <Loader /> :
         <MainLayout>
           <Switch>
+            <Route path="/dashboard/articles" component={Articles} />
+            <Route path="/dashboard/profile" component={Profile} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth" component={Auth} />
             <Route path="/" component={Home} />

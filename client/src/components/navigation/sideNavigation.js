@@ -30,7 +30,7 @@ const Navigation = ({signOutUser}) => {
         className="drawer_btn"
         onClick={() => setState(true)}
       />
-      <Drawer anchor="right" open={state} onClose={() => setState(false)}>
+      <Drawer style={{zIndex: 1800}} anchor="right" open={state} onClose={() => setState(false)}>
         <form style={{ margin: '20px' }}>
           <TextField id="outlined-basic" label="Search movie" variant="outlined" />
         </form>
