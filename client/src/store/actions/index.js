@@ -4,6 +4,7 @@ import {
   ERROR_GLOBAL,
   GET_ARTICLES,
   SIGN_OUT_USER,
+  SITE_LAYOUT,
   SUCCESS_GLOBAL
 } from "../types";
 
@@ -39,5 +40,14 @@ export const authUser = (user) => ({
   payload: user
 })
 export const signOutUser = () => ({
-  type: SIGN_OUT_USER
+  type: SIGN_OUT_USER,
+
+})
+
+
+//----- SITE -----//
+
+export const appLayout = (layout) => ({
+  type: SITE_LAYOUT,
+  payload: layout
 })

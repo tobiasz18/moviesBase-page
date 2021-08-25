@@ -31,6 +31,17 @@ const Header = (props) => {
     props.history.push('/');
     alert('logout')
   }
+
+  useEffect(() => {
+    let pathArray = props.location.pathname.split('/');
+    if(pathArray[1] === 'dashboard') {
+    
+    } else {
+
+    }
+
+  }, [prop.location.pathname])
+
   
   return (
     <nav className="navbar" style={{zIndex: 1600}}>

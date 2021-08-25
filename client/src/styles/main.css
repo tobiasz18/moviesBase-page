@@ -1,13 +1,14 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: #424242;
+  background-color: #fff!important;
 }
 a, a:hover {
   color: inherit;
 }
 
 .navbar {
-  border-bottom: 5px solid #dbdbdb;
+  border-bottom: 2px solid #dbdbdb;
   background: white;
   padding: 7px 14px;
 }

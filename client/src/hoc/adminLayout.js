@@ -14,57 +14,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonIcon from '@material-ui/icons/Person';
 import FolderIcon from '@material-ui/icons/Folder';
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
-  },
-  item: {
-    paddingTop: theme.spacing(10),
-    color: '#FFF',
-    zIndex: 4,
-  },
-  background: {
-    position: "absolute",
-    zIndex: "1",
-    height: "100%",
-    width: "100%",
-    display: "block",
-    top: "0",
-    left: "0",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    "&:after": {
-      position: "absolute",
-      zIndex: "3",
-      width: "100%",
-      height: "100%",
-      content: '""',
-      display: "block",
-      background: "#000",
-      opacity: ".8"
-    }
-  },
-  icon: {
-    color: '#FFF',
-  }
-}));
-
 function AdminLayout(props) {
   const classes = useStyles();
   const [image, setImage] = React.useState(bgImage);
@@ -127,5 +76,57 @@ const listRoutes = [
     icon: FolderIcon
   }
 ]
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+  //  backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+  },
+  item: {
+    paddingTop: theme.spacing(10),
+    color: '#FFF',
+    zIndex: 4,
+  },
+  background: {
+    position: "absolute",
+    zIndex: "1",
+    height: "100%",
+    width: "100%",
+    display: "block",
+    top: "0",
+    left: "0",
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+    "&:after": {
+      position: "absolute",
+      zIndex: "3",
+      width: "100%",
+      height: "100%",
+      content: '""',
+      display: "block",
+      background: "#000",
+      opacity: ".8"
+    }
+  },
+  icon: {
+    color: '#FFF',
+  }
+}));
+
 
 export default AdminLayout
