@@ -3,8 +3,8 @@ import AdminLayout from '../../hoc/adminLayout'
 
 const Dashboard = () => {
   return (
-    <AdminLayout>
-      dashboard
+    <AdminLayout section="Dashboard">
+      
     </AdminLayout>
   )
 }

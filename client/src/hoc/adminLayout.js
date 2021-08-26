@@ -49,7 +49,7 @@ function AdminLayout(props) {
         ) : null}
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <h5>{props.section}</h5>
         {props.children}
       </main>
     </div>

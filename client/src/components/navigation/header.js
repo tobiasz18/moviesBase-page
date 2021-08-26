@@ -34,13 +34,14 @@ const Header = (props) => {
 
   useEffect(() => {
     let pathArray = props.location.pathname.split('/');
+    console.log(pathArray)
     if(pathArray[1] === 'dashboard') {
-    
+      console.log('true')
     } else {
-
+      console.log('false')
     }
 
-  }, [prop.location.pathname])
+  }, [props.location.pathname])
 
   
   return (
