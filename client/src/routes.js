@@ -15,6 +15,7 @@ import { Loader } from "./utils/loader";
 import Dashboard from "./components/dashboard/index";
 import Profile from "./components/dashboard/profile";
 import Articles from "./components/dashboard/articles";
+import authguard from "./hoc/authGuard";
 
 
 const Routes = () => {
@@ -40,7 +41,7 @@ const Routes = () => {
           <Switch>
             <Route path="/dashboard/articles" component={Articles} />
             <Route path="/dashboard/profile" component={Profile} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={authguard(Dashboard)} />
             <Route path="/auth" component={Auth} />
             <Route path="/" component={Home} />
           </Switch>
