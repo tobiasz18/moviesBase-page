@@ -39,8 +39,8 @@ const Routes = () => {
       {loading ? <Loader /> :
         <MainLayout>
           <Switch>
-            <Route path="/dashboard/articles" component={Articles} />
-            <Route path="/dashboard/profile" component={Profile} />
+            <Route path="/dashboard/articles" component={authguard(Articles, true)} />
+            <Route path="/dashboard/profile" component={authguard(Profile)} />
             <Route path="/dashboard" component={authguard(Dashboard)} />
             <Route path="/auth" component={Auth} />
             <Route path="/" component={Home} />

@@ -5,12 +5,15 @@ export default function authguard(ComposedComponent, roleCheck = false) {
   const AuthenticationCheck = (props) => {
     const [isAuth, setIsAuth] = useState(false);
     const users = useSelector(state => state.users)
-
     useEffect(() => {
       if (!users.auth) {
-        props.history.push('/')
+        props.history.push('/auth')
       } else {
-        setIsAuth(true)
+        if (roleCheck && users.data.role === 'user') {
+          props.history.push('/dashboard')
+        } else {
+          setIsAuth(true)
+        }
       }
     }, [props, users])
 
