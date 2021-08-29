@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 // material UI icons
-import HomeIcon from '@material-ui/icons/Home'
 import DehazeIcon from '@material-ui/icons/Dehaze'
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
-import LockIcon from '@material-ui/icons/Lock'
-
+import ContactsOutlinedIcon from '@material-ui/icons/ContactsOutlined';
+import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ContactsIcon from '@material-ui/icons/Contacts';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
+
 // core components
 import {
   Divider,
@@ -37,17 +34,16 @@ const Navigation = ({ signOutUser, users }) => {
         </form>
         <Divider />
         <List>
-          
           <ListItem button component={Link} to="/" onClick={() => setState(false)}>
             <ListItemIcon>
-              <HomeIcon color="primary" />
+              <HomeOutlinedIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
 
           <ListItem button component={Link} to="/contact" onClick={() => setState(false)}>
             <ListItemIcon>
-              <ContactsIcon color="primary" />
+              <ContactsOutlinedIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Contact" />
           </ListItem>
@@ -55,7 +51,7 @@ const Navigation = ({ signOutUser, users }) => {
           {!users.auth ?
             <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
               <ListItemIcon>
-                <LockOpenIcon color="primary" />
+                <ExitToAppIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Sign in" />
             </ListItem>
@@ -67,12 +63,11 @@ const Navigation = ({ signOutUser, users }) => {
                 signOutUser()
               }}>
               <ListItemIcon>
-                <ExitToAppIcon color="primary" />
+                <LockOpenIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Sign out" />
             </ListItem>
           }
-
         </List>
         {users.auth ?
           <>
@@ -80,14 +75,13 @@ const Navigation = ({ signOutUser, users }) => {
             <List>
               <ListItem button component={Link} to="/dashboard" onClick={() => setState(false)}>
                 <ListItemIcon>
-                  <DashboardIcon />
+                  <DashboardOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
             </List>
           </>
           : null}
-
       </Drawer>
     </>
   )
