@@ -10,7 +10,9 @@ import { signOut } from '../../store/actions/users_actions'
 
 const Header = (props) => {
   const notifications = useSelector((state) => state.notifications)
+  const users = useSelector((state) => state.users)
   const dispatch = useDispatch()
+  
 
   useEffect(() => {
     if(notifications && notifications.error) {
@@ -50,7 +52,7 @@ const Header = (props) => {
         className="navbar-brand d-flex align-items-center">
         FilmsBase
       </Link>
-      <Navigation signOutUser={signOutUser}/>
+      <Navigation users={users} signOutUser={signOutUser}/>
     </nav>
   )
 }

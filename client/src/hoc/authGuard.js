@@ -7,7 +7,7 @@ export default function authguard(ComposedComponent, roleCheck = false) {
     const users = useSelector(state => state.users)
     useEffect(() => {
       if (!users.auth) {
-        props.history.push('/auth')
+        props.history.push('/')
       } else {
         if (roleCheck && users.data.role === 'user') {
           props.history.push('/dashboard')
@@ -16,7 +16,6 @@ export default function authguard(ComposedComponent, roleCheck = false) {
         }
       }
     }, [props, users])
-
 
     if (!isAuth) {
       return (

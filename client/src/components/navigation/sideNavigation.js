@@ -12,69 +12,82 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ContactsIcon from '@material-ui/icons/Contacts';
 // core components
-import { 
-  Divider, 
-  Drawer, 
-  TextField, 
-  List, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText } from '@material-ui/core'
+import {
+  Divider,
+  Drawer,
+  TextField,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core'
 
-const Navigation = ({signOutUser}) => {
+const Navigation = ({ signOutUser, users }) => {
   const [state, setState] = useState(false)
- 
+
   return (
     <>
       <DehazeIcon
         className="drawer_btn"
         onClick={() => setState(true)}
       />
-      <Drawer style={{zIndex: 1800}} anchor="right" open={state} onClose={() => setState(false)}>
+      <Drawer style={{ zIndex: 1800 }} anchor="right" open={state} onClose={() => setState(false)}>
         <form style={{ margin: '20px' }}>
           <TextField id="outlined-basic" label="Search movie" variant="outlined" />
         </form>
         <Divider />
         <List>
+          
           <ListItem button component={Link} to="/" onClick={() => setState(false)}>
             <ListItemIcon>
               <HomeIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
+
           <ListItem button component={Link} to="/contact" onClick={() => setState(false)}>
             <ListItemIcon>
               <ContactsIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Contact" />
           </ListItem>
-          <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
-            <ListItemIcon>
-              <LockOpenIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Sign in" />
-          </ListItem>
-          <ListItem 
-            button 
-            onClick={() => {
-              setState(false)
-              signOutUser()
-            }}>
-            <ListItemIcon>
-              <ExitToAppIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Sign out" />
-          </ListItem>
+
+          {!users.auth ?
+            <ListItem button component={Link} to="/auth" onClick={() => setState(false)}>
+              <ListItemIcon>
+                <LockOpenIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Sign in" />
+            </ListItem>
+            :
+            <ListItem
+              button
+              onClick={() => {
+                setState(false)
+                signOutUser()
+              }}>
+              <ListItemIcon>
+                <ExitToAppIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Sign out" />
+            </ListItem>
+          }
+
         </List>
-        <Divider />
-        <List>
-          <ListItem button component={Link} to="/dashboard" onClick={() => setState(false)}>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"  />
-          </ListItem>
-        </List>
+        {users.auth ?
+          <>
+            <Divider />
+            <List>
+              <ListItem button component={Link} to="/dashboard" onClick={() => setState(false)}>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
+            </List>
+          </>
+          : null}
+
       </Drawer>
     </>
   )
