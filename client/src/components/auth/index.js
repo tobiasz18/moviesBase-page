@@ -7,6 +7,7 @@ import { Container, Typography, CssBaseline, Avatar, Button, TextField } from '@
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser, signInUser } from '../../store/actions/users_actions'
 import { useEffect } from 'react'
+import PreventAuthRoute from '../../hoc/preventAuthRoute'
 
 const Auth = (props) => {
   const classes = useStyles()
@@ -33,10 +34,10 @@ const Auth = (props) => {
 
   const handleSubmit = (values) => {
     if (register) {
-        dispatch(registerUser(values))
-        console.log('register')
+      dispatch(registerUser(values))
+      console.log('register')
     } else {
-     dispatch(signInUser(values))
+      dispatch(signInUser(values))
     }
   }
 
@@ -45,60 +46,62 @@ const Auth = (props) => {
     helperText: formik.errors[name] && formik.touched[name] ? formik.errors[name] : null
   })
 
-  useEffect(() => { 
-    if(notifications && notifications.success)
-    props.history.push('/dashboard')
+  useEffect(() => {
+    if (notifications && notifications.success)
+      props.history.push('/dashboard')
   }, [notifications, props.history])
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" >
-          {register ? 'Register' : 'Sign in'}
-        </Typography>
-        <form className={classes.form} onSubmit={formik.handleSubmit}>
-          <TextField
-            label="Email Address"
-            fullWidth
-            margin="normal"
-            name="email"
-            {...formik.getFieldProps('email')}
-            {...errorHelper(formik, 'email')}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Enter your password"
-            name="password"
-            type="password"
-            {...formik.getFieldProps('password')}
-            {...errorHelper(formik, 'password')}
-          />
-          <Button
-            fullWidth
-            color="primary"
-            className={classes.submit}
-            type="submit"
-            variant="contained">
-            {register ? 'Register' : 'Login'}
-          </Button>
-          <Button
-            variant="outlined"
-            fullWidth
-            color="secondary"
-            className={classes.submit}
-            size="small"
-            onClick={() => setRegister(!register)}
-          >
-            Want to {!register ? 'Register' : 'Sign in'} ?
-          </Button>
-        </form>
-      </div>
-    </Container>
+    <PreventAuthRoute>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" >
+            {register ? 'Register' : 'Sign in'}
+          </Typography>
+          <form className={classes.form} onSubmit={formik.handleSubmit}>
+            <TextField
+              label="Email Address"
+              fullWidth
+              margin="normal"
+              name="email"
+              {...formik.getFieldProps('email')}
+              {...errorHelper(formik, 'email')}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Enter your password"
+              name="password"
+              type="password"
+              {...formik.getFieldProps('password')}
+              {...errorHelper(formik, 'password')}
+            />
+            <Button
+              fullWidth
+              color="primary"
+              className={classes.submit}
+              type="submit"
+              variant="contained">
+              {register ? 'Register' : 'Login'}
+            </Button>
+            <Button
+              variant="outlined"
+              fullWidth
+              color="secondary"
+              className={classes.submit}
+              size="small"
+              onClick={() => setRegister(!register)}
+            >
+              Want to {!register ? 'Register' : 'Sign in'} ?
+            </Button>
+          </form>
+        </div>
+      </Container>
+    </PreventAuthRoute>
   )
 }
 
