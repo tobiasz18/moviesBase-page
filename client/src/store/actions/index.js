@@ -1,5 +1,6 @@
 import {
   AUTH_USERS,
+  CLEAR_ARTICLE,
   CLEAR_NOTIFICATION,
   ERROR_GLOBAL,
   GET_ARTICLE,
@@ -19,6 +20,13 @@ export const getArticle = (article) => ({
   type: GET_ARTICLE,
   payload: article
 })
+export const clearArticle = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: CLEAR_ARTICLE
+    })
+  }
+}
 
 
 //----- NOTIFICATIONS -----//

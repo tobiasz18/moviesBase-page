@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Box from '@material-ui/core/Box';
 import { Typography, CardMedia } from '@material-ui/core';
 import { getArticleAsync } from '../../../store/actions/articles_actions';
+import { Loader } from '../../../utils/loader';
+import { clearArticle } from '../../../store/actions';
 
 const Article = (props) => {
   const { current } = useSelector(state => state.articles)
@@ -10,7 +12,8 @@ const Article = (props) => {
 
   useEffect(() => {
     dispatch(getArticleAsync(props.match.params.id))
-  }, [])
+    return () => dispatch(clearArticle())
+  }, [dispatch, props.match.params.id])
 
   return (
     <div style={{ width: '100%' }}>
@@ -34,11 +37,9 @@ const Article = (props) => {
             />
           </Box>
           <Box p={1}>
-            <Typography>
-              {current.content}
-            </Typography>
+            <Typography  dangerouslySetInnerHTML={{ __html: current.content}} />
           </Box>
-        </> : null}
+        </> : <Loader />}
       </Box>
     </div>
   )
