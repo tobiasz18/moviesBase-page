@@ -2,6 +2,7 @@ import {
   AUTH_USERS,
   CLEAR_NOTIFICATION,
   ERROR_GLOBAL,
+  GET_ARTICLE,
   GET_ARTICLES,
   SIGN_OUT_USER,
   SITE_LAYOUT,
@@ -14,6 +15,11 @@ export const getArticles = (sort) => ({
   type: GET_ARTICLES,
   payload: sort
 })
+export const getArticle = (article) => ({
+  type: GET_ARTICLE,
+  payload: article
+})
+
 
 //----- NOTIFICATIONS -----//
 

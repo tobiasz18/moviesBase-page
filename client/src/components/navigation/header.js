@@ -6,8 +6,6 @@ import { showToast } from '../../utils/tools'
 import { clearNotification } from '../../store/actions'
 import { signOut } from '../../store/actions/users_actions'
 
-
-
 const Header = (props) => {
   const notifications = useSelector((state) => state.notifications)
   const users = useSelector((state) => state.users)
@@ -36,11 +34,10 @@ const Header = (props) => {
 
   useEffect(() => {
     let pathArray = props.location.pathname.split('/');
-    console.log(pathArray)
     if(pathArray[1] === 'dashboard') {
-      console.log('true')
+    //  console.log('true')
     } else {
-      console.log('false')
+  //    console.log('false')
     }
 
   }, [props.location.pathname])

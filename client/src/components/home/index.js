@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 //import { makeStyles } from '@material-ui/core/styles';
 import ArticleCard from '../../utils/articleCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticleAsync } from '../../store/actions/articles_actions'
+import { getArticlesAsync } from '../../store/actions/articles_actions'
 
 const initialState = {
   sortBy: "_id",
@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     // only on the first render
     if (articles && !articles.articles) {
-      dispatch(getArticleAsync(initialState))
+      dispatch(getArticlesAsync(initialState))
     }
   }, [dispatch, articles])
 
@@ -44,7 +44,7 @@ const Home = () => {
       </Grid>
       <button onClick={() => {
         const skip = sort.skip + sort.limit
-        dispatch(getArticleAsync({ ...sort, skip: skip }))
+        dispatch(getArticlesAsync({ ...sort, skip: skip }))
         sortDispatch({ skip: skip })
 
       }}>
