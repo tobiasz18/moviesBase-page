@@ -10,7 +10,7 @@ a, a:hover {
 .navbar {
   border-bottom: 2px solid #dbdbdb;
   background: white;
-  padding: 7px 14px;
+  padding: 8px 34px;
 }
 .navbar.dash_layout {
   position:relative !important;

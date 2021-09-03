@@ -18,7 +18,7 @@ const ArticleCard = ({ article }) => {
         component={Link} 
         to={`/article/${article._id}`}
         style={{ height: 0, paddingTop: '56.25%' }}
-        image="https://picsum.photos/200"
+        image="https://picsum.photos/400"
         title="some title"
       />
       <CardContent>

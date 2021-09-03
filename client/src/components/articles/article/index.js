@@ -28,7 +28,7 @@ const Article = (props) => {
           <Box p={1}>
             <CardMedia
               style={{ height: 0, paddingTop: '56.25%' }}
-              image="https://picsum.photos/200"
+              image="https://picsum.photos/1920/1080"
               title="some title"
             />
           </Box>

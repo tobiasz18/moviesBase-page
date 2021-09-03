@@ -7,7 +7,7 @@ export default function articleReducer(state = [], action) {
     case GET_ARTICLE:
       return { ...state, current: action.payload }  
     case CLEAR_ARTICLE: 
-      return { ...state, current: {} }  
+      return { ...state, current: null }  
     default:
       return state
   }
