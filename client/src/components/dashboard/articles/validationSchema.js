@@ -1,9 +1,13 @@
 import * as yup from 'yup';
 
 export const initialValues = {
-  title: '',
-  content: '',
-
+  title:'',
+  content:'',
+  excerpt:'',
+  score:'',
+  director:'',
+  actors:[],
+  status:'draft'
 }
 
 export const validationSchema = yup.object({

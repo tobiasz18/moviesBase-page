@@ -20,7 +20,6 @@ const AddArticle = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log('test')
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -29,6 +28,7 @@ const AddArticle = () => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <TextField
+          className={classes.input}
           fullWidth
           name="title"
           label="title"
@@ -38,6 +38,7 @@ const AddArticle = () => {
           helperText={formik.touched.title && formik.errors.title}
         />
         <TextField
+          className={classes.input}
           fullWidth
           name="content"
           label="content"
@@ -50,6 +51,7 @@ const AddArticle = () => {
           helperText={formik.touched.content && formik.errors.content}
         />
         <TextField
+          className={classes.input}
           fullWidth
           name="excerpt"
           label="excerpt"
@@ -62,6 +64,7 @@ const AddArticle = () => {
           helperText={formik.touched.excerpt && formik.errors.excerpt}
         />
         <TextField
+          className={classes.input}
           fullWidth
           name="director"
           label="director"
@@ -72,6 +75,7 @@ const AddArticle = () => {
           helperText={formik.touched.director && formik.errors.director}
         />
         <TextField
+          className={classes.input}
           fullWidth
           name="actors"
           label="actors"
@@ -82,6 +86,7 @@ const AddArticle = () => {
           helperText={formik.touched.actors && formik.errors.actors}
         />
         <TextField
+          className={classes.input}
           fullWidth
           name="score"
           label="score"
@@ -92,7 +97,7 @@ const AddArticle = () => {
           helperText={formik.touched.score && formik.errors.score}
         />
 
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.input}>
           <InputLabel >Status</InputLabel>
           <Select
             labelId="demo-controlled-open-select-label"
@@ -116,13 +121,8 @@ const AddArticle = () => {
 }
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
+  input: {
     margin: theme.spacing(1),
-    minWidth: 120,
   },
 }));
 
