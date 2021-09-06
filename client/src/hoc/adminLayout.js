@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
   background: {
     position: "absolute",
-    zIndex: "1",
+    zIndex: "-1",
     height: "100%",
     width: "100%",
     display: "block",

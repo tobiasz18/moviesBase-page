@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react'
-import Grid from '@material-ui/core/Grid'
+import { Grid, Box } from '@material-ui/core'
 //import { makeStyles } from '@material-ui/core/styles';
 import ArticleCard from '../../utils/articleCard'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,6 +20,7 @@ const Home = () => {
   const [sort, sortDispatch] = useReducer(reducer, initialState)
   const articles = useSelector((state) => state.articles)
   const dispatch = useDispatch()
+  const [spacing, setSpacing] = React.useState(2);
 
   useEffect(() => {
     // only on the first render
@@ -29,13 +30,13 @@ const Home = () => {
   }, [dispatch, articles])
 
   return (
-    <div>
-      <div>Carusel</div>
-      <Grid container spacing={2} className="article_card">
+    <>
+      {/* <div>Carusel</div> */}
+      <Grid container spacing={2} m={4} >
         {articles && articles.articles ?
           articles.articles.map((item) => {
             return (
-              <Grid key={item._id} item xs={12} sm={6} lg={3}>
+              <Grid key={item._id} spacing={spacing} item xs={12} sm={6} lg={3}>
                 <ArticleCard key={item._id} article={item} />
               </Grid>
             )
@@ -50,7 +51,7 @@ const Home = () => {
       }}>
         Load more
       </button>
-    </div>
+    </>
   )
 }
 
