@@ -16,7 +16,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 function AdminLayout(props) {
   const classes = useStyles();
-  const [image, setImage] = React.useState(bgImage);
+  const [image] = React.useState(bgImage);
   return (
     <div className={classes.root}>
       <CssBaseline />

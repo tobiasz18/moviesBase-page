@@ -42,8 +42,7 @@ export const isAuthUser = () => {
       if(!getTokenCookie()) {
         throw new Error()
       }
-
-      const user = await axios.get(`api/users/isauth`, getAuthHeader())
+      const user = await axios.get(`/api/users/isauth`, getAuthHeader())
       dispatch(users.authUser({ data: user.data, auth: true }))
     } catch (error) {
       dispatch(users.authUser({ data: {}, auth: false }))

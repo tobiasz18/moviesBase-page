@@ -9,7 +9,6 @@ export const Loader = () => {
       justifyContent="center"
       alignItems="center"
       minHeight="90vh"
-
     >
       <CircularProgress />
     </Box>

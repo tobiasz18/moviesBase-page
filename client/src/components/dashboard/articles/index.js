@@ -1,13 +1,13 @@
 import React from 'react'
 import AdminLayout from '../../../hoc/adminLayout'
-import AddArticle from './add'
-
-const Articles = () => {
+import { Link } from 'react-router-dom'
+const Articles = (props) => {
+  console.log(props)
   return (
-    <AdminLayout>
+    <AdminLayout section="Articles">
 
-
-      <AddArticle />
+      Articles
+      <Link to="/dashboard/articles/add">home</Link>
     </AdminLayout>
   )
 }

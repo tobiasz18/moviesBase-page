@@ -34,7 +34,7 @@ const Header = (props) => {
     props.history.push('/');
     alert('logout')
   }
-
+/*
   useEffect(() => {
     let pathArray = props.location.pathname.split('/');
     if (pathArray[1] === 'dashboard') {
@@ -43,7 +43,7 @@ const Header = (props) => {
       //    console.log('false')
     }
 
-  }, [props.location.pathname])
+  }, [props.location.pathname])*/
 
   return (
     <Box boxShadow={1} position="relative" zIndex="tooltip" className={classes.background}>

@@ -11,8 +11,9 @@ import {
   InputLabel,
   Select
 } from '@material-ui/core';
+import AdminLayout from '../../../hoc/adminLayout';
 
-const AddArticle = () => {
+const AddArticle = (props) => {
   const classes = useStyles()
 
   const formik = useFormik({
@@ -25,10 +26,12 @@ const AddArticle = () => {
   });
 
   return (
-    <div>
+    <AdminLayout>
+      <h4>Add article</h4>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           className={classes.input}
+          variant="outlined"
           fullWidth
           name="title"
           label="title"
@@ -40,6 +43,7 @@ const AddArticle = () => {
         <TextField
           className={classes.input}
           fullWidth
+          variant="outlined"
           name="content"
           label="content"
           type="content"
@@ -53,6 +57,7 @@ const AddArticle = () => {
         <TextField
           className={classes.input}
           fullWidth
+          variant="outlined"
           name="excerpt"
           label="excerpt"
           type="excerpt"
@@ -66,6 +71,7 @@ const AddArticle = () => {
         <TextField
           className={classes.input}
           fullWidth
+          variant="outlined"
           name="director"
           label="director"
           type="director"
@@ -78,6 +84,7 @@ const AddArticle = () => {
           className={classes.input}
           fullWidth
           name="actors"
+          variant="outlined"
           label="actors"
           type="actors"
           value={formik.values.actors}
@@ -91,6 +98,7 @@ const AddArticle = () => {
           name="score"
           label="score"
           type="score"
+          variant="outlined"
           value={formik.values.score}
           onChange={formik.handleChange}
           error={formik.touched.score && Boolean(formik.errors.score)}
@@ -116,7 +124,7 @@ const AddArticle = () => {
           Submit
         </Button>
       </form>
-    </div>
+    </AdminLayout>
   )
 }
 

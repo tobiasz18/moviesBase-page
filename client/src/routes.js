@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route
 } from "react-router-dom";
@@ -17,11 +17,12 @@ import Profile from "./components/dashboard/profile";
 import Articles from "./components/dashboard/articles";
 import authguard from "./hoc/authGuard";
 import Article from "./components/articles/article";
+import AddArticle from "./components/dashboard/articles/addArticle";
 
 
 const Routes = () => {
   const [loading, setLoading] = useState(true)
-  const state = useSelector(state => state.users)
+  const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,21 +30,23 @@ const Routes = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (state.auth !== null) {
+    if (users.auth !== null) {
       setLoading(false)
+      console.log('oho')
     }
-  }, [state.auth])
+  }, [users])
 
   return (
-    <Router>
+    <BrowserRouter>
       <Header />
       {loading ? <Loader /> :
         <MainLayout>
-          <Switch>
-            <Route path="/article/:id" component={Article} />
+          <Switch>    
+            <Route path="/dashboard/articles/add" component={authguard(AddArticle, true)} />
             <Route path="/dashboard/articles" component={authguard(Articles, true)} />
             <Route path="/dashboard/profile" component={authguard(Profile)} />
             <Route path="/dashboard" component={authguard(Dashboard)} />
+            <Route path="/article/:id" component={Article} />
             <Route path="/auth" component={Auth} />
             <Route path="/" component={Home} />
           </Switch>
@@ -62,7 +65,7 @@ const Routes = () => {
         ]}
         subsets={['cyrillic-ext', 'greek']}
       />
-    </Router >
+    </BrowserRouter >
   )
 }
 

@@ -1,11 +1,11 @@
-import React, { useEffect, useReducer, useState } from 'react'
-import { Grid, Box } from '@material-ui/core'
+import React, { useEffect, useReducer } from 'react'
+import { Grid } from '@material-ui/core'
 //import { makeStyles } from '@material-ui/core/styles';
 import ArticleCard from '../../utils/articleCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticlesAsync } from '../../store/actions/articles_actions'
 
-const initialState = {
+const initialSort = {
   sortBy: "_id",
   order: "desc",
   limit: 5,
@@ -13,19 +13,20 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-  return { ...state, ...action }
+  return ({ ...state, ...action })
 }
 
 const Home = () => {
-  const [sort, sortDispatch] = useReducer(reducer, initialState)
+  const [sort, sortDispatch] = useReducer(reducer, initialSort)
   const articles = useSelector((state) => state.articles)
   const dispatch = useDispatch()
-  const [spacing, setSpacing] = React.useState(2);
+  const [spacing] = React.useState(2);
 
   useEffect(() => {
     // only on the first render
     if (articles && !articles.articles) {
-      dispatch(getArticlesAsync(initialState))
+      dispatch(getArticlesAsync(initialSort))
+      console.log('RUN')
     }
   }, [dispatch, articles])
 
