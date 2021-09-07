@@ -5,9 +5,7 @@ const Articles = (props) => {
   console.log(props)
   return (
     <AdminLayout section="Articles">
-
-      Articles
-      <Link to="/dashboard/articles/add">home</Link>
+      <Link to="/dashboard/articles/add">Add</Link>
     </AdminLayout>
   )
 }

@@ -9,9 +9,25 @@ import {
   FormControl,
   MenuItem,
   InputLabel,
-  Select
+  Select,
+  Divider,
+  Box,
+  FormHelperText
 } from '@material-ui/core';
+
 import AdminLayout from '../../../hoc/adminLayout';
+import { FormGroup } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      marginBottom: theme.spacing(2),
+    }
+  },
+  formControl: {
+    minWidth: 182,
+  }
+}));
 
 const AddArticle = (props) => {
   const classes = useStyles()
@@ -25,37 +41,25 @@ const AddArticle = (props) => {
     },
   });
 
+  const errorHelper = (formik, values) => ({
+    error: formik.errors[values] && formik.touched[values] ? true : false,
+    helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values] : null
+  });
+
   return (
-    <AdminLayout>
-      <h4>Add article</h4>
-      <form onSubmit={formik.handleSubmit}>
+    <AdminLayout section="Add article">
+      <form className={classes.root} onSubmit={formik.handleSubmit}>
+
         <TextField
-          className={classes.input}
-          variant="outlined"
           fullWidth
+          variant="outlined"
           name="title"
           label="title"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          error={formik.touched.title && Boolean(formik.errors.title)}
-          helperText={formik.touched.title && formik.errors.title}
+          {...formik.getFieldProps('title')}
+          {...errorHelper(formik, 'title')}
         />
+
         <TextField
-          className={classes.input}
-          fullWidth
-          variant="outlined"
-          name="content"
-          label="content"
-          type="content"
-          multiline="true"
-          minRows="4"
-          value={formik.values.content}
-          onChange={formik.handleChange}
-          error={formik.touched.content && Boolean(formik.errors.content)}
-          helperText={formik.touched.content && formik.errors.content}
-        />
-        <TextField
-          className={classes.input}
           fullWidth
           variant="outlined"
           name="excerpt"
@@ -63,76 +67,99 @@ const AddArticle = (props) => {
           type="excerpt"
           multiline="true"
           minRows="4"
-          value={formik.values.excerpt}
-          onChange={formik.handleChange}
-          error={formik.touched.excerpt && Boolean(formik.errors.excerpt)}
-          helperText={formik.touched.excerpt && formik.errors.excerpt}
+          {...formik.getFieldProps('excerpt')}
+          {...errorHelper(formik, 'excerpt')}
         />
+
         <TextField
-          className={classes.input}
+          fullWidth
+          variant="outlined"
+          name="content"
+          label="content"
+          type="content"
+          multiline="true"
+          minRows="4"
+          {...formik.getFieldProps('content')}
+          {...errorHelper(formik, 'content')}
+        />
+
+        <Divider />
+        <h4>Movie data and score</h4>
+
+        <TextField
           fullWidth
           variant="outlined"
           name="director"
           label="director"
           type="director"
-          value={formik.values.director}
-          onChange={formik.handleChange}
-          error={formik.touched.director && Boolean(formik.errors.director)}
-          helperText={formik.touched.director && formik.errors.director}
+          {...formik.getFieldProps('director')}
+          {...errorHelper(formik, 'director')}
         />
         <TextField
-          className={classes.input}
           fullWidth
           name="actors"
           variant="outlined"
           label="actors"
           type="actors"
-          value={formik.values.actors}
-          onChange={formik.handleChange}
-          error={formik.touched.actors && Boolean(formik.errors.actors)}
-          helperText={formik.touched.actors && formik.errors.actors}
+          {...formik.getFieldProps('actors')}
+          {...errorHelper(formik, 'actors')}
         />
+
         <TextField
-          className={classes.input}
           fullWidth
           name="score"
           label="score"
           type="score"
           variant="outlined"
-          value={formik.values.score}
-          onChange={formik.handleChange}
-          error={formik.touched.score && Boolean(formik.errors.score)}
-          helperText={formik.touched.score && formik.errors.score}
+          {...formik.getFieldProps('score')}
+          {...errorHelper(formik, 'score')}
         />
 
-        <FormControl className={classes.input}>
-          <InputLabel >Status</InputLabel>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <h4>Select a status</h4>
           <Select
-            labelId="demo-controlled-open-select-label"
-            id="demo-controlled-open-select"
-            open={formik.open}
-            onClose={formik.handleClose}
-            onOpen={formik.handleOpen}
-            value={formik.values.status}
-            onChange={formik.handleChange}
+            name="status"
+            className={classes.selectEmpty}
+            {...formik.getFieldProps('status')}
+            error={formik.errors.status && formik.touched.status ? true : false}
           >
-            <MenuItem value={'draft'}>draft</MenuItem>
-            <MenuItem value={'public'}>public</MenuItem>
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={'draft'}>Draft</MenuItem>
+            <MenuItem value={'public'}>Public</MenuItem>
           </Select>
+          {formik.errors.status && formik.touched.status ?
+            <FormHelperText error={true}>
+              {formik.errors.status}
+            </FormHelperText>
+            : null}
         </FormControl>
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
+        <Box mt={1}>
+          <Box mb={2}>
+            <Divider />
+          </Box>
+          <Button color="primary" variant="contained" type="submit">
+            Submit
+          </Button>
+        </Box>
       </form>
     </AdminLayout>
   )
 }
 
-const useStyles = makeStyles((theme) => ({
-  input: {
-    margin: theme.spacing(1),
-  },
-}));
-
-
 export default AddArticle
+
+
+
+
+  // < TextField
+  //   fullWidth
+  //   variant = "outlined"
+  //   name = "title"
+  //   label = "title"
+  //   value = { formik.values.title }
+  //   onChange = { formik.handleChange }
+  //   error = { formik.touched.title && Boolean(formik.errors.title) }
+  //   helperText = { formik.touched.title && formik.errors.title }
+  // />

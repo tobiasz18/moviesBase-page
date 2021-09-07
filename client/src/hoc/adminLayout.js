@@ -49,7 +49,9 @@ function AdminLayout(props) {
         ) : null}
       </Drawer>
       <main className={classes.content}>
-        <h5>{props.section}</h5>
+        <div className="test">
+          <h5>{props.section}</h5>
+        </div>
         {props.children}
       </main>
     </div>
@@ -94,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-  //  backgroundColor: theme.palette.background.default,
+    //  backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
   item: {
