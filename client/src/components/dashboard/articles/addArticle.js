@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { useFormik, FieldArray, Field, FormikProvider } from 'formik';
 import { initialValues, validationSchema } from './validationSchema';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,11 +12,17 @@ import {
   Select,
   Divider,
   Box,
-  FormHelperText
+  FormHelperText,
+  Paper,
+  InputBase,
 } from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
+import Chip from '@material-ui/core/Chip';
 
 import AdminLayout from '../../../hoc/adminLayout';
 import { FormGroup } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,9 +30,30 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(2),
     }
   },
+  rootPaper: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 400,
+    justifyContent: 'space-between',
+    border: '1px solid #c4c4c4',
+  },
   formControl: {
     minWidth: 182,
-  }
+  },
+  input: {
+    padding: theme.spacing(1),
+  },
+  chip_container: {
+    display: 'flex',
+    margin: '16px 0',
+
+  },
+  MuiChipRroot: {
+    margin: ' 16px 8px 8px 0'
+  },
+
+
 }));
 
 const AddArticle = (props) => {
@@ -95,15 +122,51 @@ const AddArticle = (props) => {
           {...formik.getFieldProps('director')}
           {...errorHelper(formik, 'director')}
         />
-        <TextField
-          fullWidth
-          name="actors"
-          variant="outlined"
-          label="actors"
-          type="actors"
-          {...formik.getFieldProps('actors')}
-          {...errorHelper(formik, 'actors')}
-        />
+
+        <FormikProvider value={formik}>
+          <h5>Add the actors:</h5>
+          <FieldArray
+            name="actors"
+            render={arrayHelpers => (
+              <div>
+                <Paper component="form" className={classes.rootPaper} elevation={0} >
+                  <InputBase
+                    className={classes.input}
+                    placeholder="Add actor name here"
+                    fullWidth
+                  />
+                  <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                    <AddIcon />
+                  </IconButton>
+                </Paper>
+
+                {formik.errors.actors && formik.touched.actors ?
+                  <FormHelperText error={true}>
+                    {formik.errors.actors}
+                  </FormHelperText>
+                  : null}
+
+                <Box display="flex">
+                  {console.log(formik.values.actors)}
+                  {formik.values.actors.map((actor, index) => {
+                    return (
+                      <Box key={actor} mt={2} mr={1}>
+                        <Chip
+                          label={`${actor}`}
+                          color="primary"
+                          onDelete={() => console.log('try to delete')}
+                        />
+                      </Box>
+                    )
+                  })}
+                </Box>
+              </div>
+            )}
+          />
+
+        </FormikProvider>
+
+
 
         <TextField
           fullWidth
@@ -140,7 +203,7 @@ const AddArticle = (props) => {
             <Divider />
           </Box>
           <Button color="primary" variant="contained" type="submit">
-            Submit
+            Add article
           </Button>
         </Box>
       </form>
