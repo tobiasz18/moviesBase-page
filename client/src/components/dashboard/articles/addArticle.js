@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useFormik, FieldArray, Field, FormikProvider } from 'formik';
 import { initialValues, validationSchema } from './validationSchema';
 import Button from '@material-ui/core/Button';
@@ -34,31 +34,18 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    maxWidth: 450,
     justifyContent: 'space-between',
     border: '1px solid #c4c4c4',
-  },
-  formControl: {
-    minWidth: 182,
-  },
-  input: {
-    padding: theme.spacing(1),
-  },
-  chip_container: {
-    display: 'flex',
-    margin: '16px 0',
-
-  },
-  MuiChipRroot: {
-    margin: ' 16px 8px 8px 0'
-  },
-
-
+  }
 }));
 
 const AddArticle = (props) => {
-  const classes = useStyles()
 
+
+  const actorsValue = useRef('');
+
+  const classes = useStyles()
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
@@ -129,13 +116,21 @@ const AddArticle = (props) => {
             name="actors"
             render={arrayHelpers => (
               <div>
+                
                 <Paper component="form" className={classes.rootPaper} elevation={0} >
                   <InputBase
                     className={classes.input}
+                    inputRef={actorsValue}
                     placeholder="Add actor name here"
                     fullWidth
                   />
-                  <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                  <IconButton 
+                    className={classes.iconButton}
+                    onClick={() => {
+                      arrayHelpers.push(actorsValue.current.value)
+                      actorsValue.current.value = ''
+                    }}
+                  >
                     <AddIcon />
                   </IconButton>
                 </Paper>
@@ -154,7 +149,7 @@ const AddArticle = (props) => {
                         <Chip
                           label={`${actor}`}
                           color="primary"
-                          onDelete={() => console.log('try to delete')}
+                          onDelete={() => arrayHelpers.remove(index)}
                         />
                       </Box>
                     )
