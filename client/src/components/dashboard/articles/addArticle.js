@@ -1,28 +1,24 @@
 import React, { useRef } from 'react';
-import { useFormik, FieldArray, Field, FormikProvider } from 'formik';
+import { useFormik, FieldArray, FormikProvider } from 'formik';
 import { initialValues, validationSchema } from './validationSchema';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
-  TextareaAutosize,
   FormControl,
   MenuItem,
-  InputLabel,
   Select,
   Divider,
   Box,
   FormHelperText,
   Paper,
   InputBase,
+  IconButton,
+  Chip
 } from '@material-ui/core';
 
-import AddIcon from '@material-ui/icons/Add';
-import Chip from '@material-ui/core/Chip';
-
-import AdminLayout from '../../../hoc/adminLayout';
-import { FormGroup } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add'
+import AdminLayout from '../../../hoc/adminLayout'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 450,
     justifyContent: 'space-between',
     border: '1px solid #c4c4c4',
+  },
+  input: {
+    padding: theme.spacing(1)
   }
 }));
 
 const AddArticle = (props) => {
-
-
-  const actorsValue = useRef('');
-
+  const actorsValue = useRef('')
   const classes = useStyles()
   const formik = useFormik({
     enableReinitialize: true,
@@ -63,7 +59,7 @@ const AddArticle = (props) => {
   return (
     <AdminLayout section="Add article">
       <form className={classes.root} onSubmit={formik.handleSubmit}>
-
+        {/*----------       Title     ----------*/}
         <TextField
           fullWidth
           variant="outlined"
@@ -72,34 +68,34 @@ const AddArticle = (props) => {
           {...formik.getFieldProps('title')}
           {...errorHelper(formik, 'title')}
         />
-
+        {/*----------       excerpt     ----------*/}
         <TextField
           fullWidth
           variant="outlined"
           name="excerpt"
           label="excerpt"
           type="excerpt"
-          multiline="true"
+          multiline={true}
           minRows="4"
           {...formik.getFieldProps('excerpt')}
           {...errorHelper(formik, 'excerpt')}
         />
-
+        {/*----------       excerpt     ----------*/}
         <TextField
           fullWidth
           variant="outlined"
           name="content"
           label="content"
           type="content"
-          multiline="true"
+          multiline={true}
           minRows="4"
           {...formik.getFieldProps('content')}
           {...errorHelper(formik, 'content')}
         />
-
+        {/*--------------------*/}
         <Divider />
         <h4>Movie data and score</h4>
-
+        {/*----------       director     ----------*/}
         <TextField
           fullWidth
           variant="outlined"
@@ -109,40 +105,47 @@ const AddArticle = (props) => {
           {...formik.getFieldProps('director')}
           {...errorHelper(formik, 'director')}
         />
-
+        {/*----------       Add the actors     ----------*/}
         <FormikProvider value={formik}>
           <h5>Add the actors:</h5>
           <FieldArray
             name="actors"
             render={arrayHelpers => (
               <div>
-                
                 <Paper component="form" className={classes.rootPaper} elevation={0} >
                   <InputBase
                     className={classes.input}
                     inputRef={actorsValue}
                     placeholder="Add actor name here"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        if (e.target.value !== '') {
+                          arrayHelpers.push(e.target.value)
+                          e.target.value = ''
+                        }
+                      }
+                    }}
                     fullWidth
                   />
-                  <IconButton 
+                  <IconButton
                     className={classes.iconButton}
                     onClick={() => {
-                      arrayHelpers.push(actorsValue.current.value)
-                      actorsValue.current.value = ''
+                      if (actorsValue.current.value !== '') {
+                        arrayHelpers.push(actorsValue.current.value)
+                        actorsValue.current.value = ''
+                      }
                     }}
                   >
                     <AddIcon />
                   </IconButton>
                 </Paper>
-
                 {formik.errors.actors && formik.touched.actors ?
                   <FormHelperText error={true}>
                     {formik.errors.actors}
                   </FormHelperText>
                   : null}
-
                 <Box display="flex">
-                  {console.log(formik.values.actors)}
                   {formik.values.actors.map((actor, index) => {
                     return (
                       <Box key={actor} mt={2} mr={1}>
@@ -158,21 +161,18 @@ const AddArticle = (props) => {
               </div>
             )}
           />
-
         </FormikProvider>
-
-
-
+        {/*----------     score     ----------*/}
         <TextField
           fullWidth
           name="score"
           label="score"
-          type="score"
+          type="number"
           variant="outlined"
           {...formik.getFieldProps('score')}
           {...errorHelper(formik, 'score')}
         />
-
+        {/*----------     Select a status     ----------*/}
         <FormControl variant="outlined" className={classes.formControl}>
           <h4>Select a status</h4>
           <Select
@@ -193,6 +193,7 @@ const AddArticle = (props) => {
             </FormHelperText>
             : null}
         </FormControl>
+        {/*----------     Divider and Submit Button   ----------*/}
         <Box mt={1}>
           <Box mb={2}>
             <Divider />
