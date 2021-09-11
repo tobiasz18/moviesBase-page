@@ -8,6 +8,7 @@ import { signOut } from '../../store/actions/users_actions'
 import { Box } from "@material-ui/core"
 import image from '../../assets/img/logo.jpg'
 import { makeStyles } from '@material-ui/core/styles'
+import { changeLayout } from '../../store/actions/site_actions'
 
 const Header = (props) => {
   const classes = useStyles();
@@ -34,16 +35,16 @@ const Header = (props) => {
     props.history.push('/');
     alert('logout')
   }
-/*
+
   useEffect(() => {
     let pathArray = props.location.pathname.split('/');
     if (pathArray[1] === 'dashboard') {
-      //  console.log('true')
+       dispatch(changeLayout('dashboard_layout'))
     } else {
-      //    console.log('false')
+      dispatch(changeLayout(''))
     }
 
-  }, [props.location.pathname])*/
+  }, [props.location.pathname, dispatch])
 
   return (
     <Box boxShadow={1} position="relative" zIndex="tooltip" className={classes.background}>

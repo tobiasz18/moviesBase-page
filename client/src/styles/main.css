@@ -21,6 +21,16 @@ body {
   font-size: large;
 }
 
+
+/*==========  change layout      ==========*/
+.dashboard_layout {
+
+}
+.dashboard_layout > div {
+  margin: 0;
+}
+
+
 /* ============ Carrousel ==============
 
 .carrousel_avatar {

@@ -1,6 +1,6 @@
 import * as site from './index'
 
-export const actionName = (layout) => {
+export const changeLayout = (layout) => {
   return (dispatch) => {
     dispatch(site.appLayout(layout))
   }

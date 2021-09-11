@@ -105,7 +105,7 @@ const AddArticle = (props) => {
           {...formik.getFieldProps('director')}
           {...errorHelper(formik, 'director')}
         />
-        {/*----------       Add the actors     ----------*/}
+        {/*----------       Add the actors by FieldArray  ----------*/}
         <FormikProvider value={formik}>
           <h5>Add the actors:</h5>
           <FieldArray

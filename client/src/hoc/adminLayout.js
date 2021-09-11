@@ -79,7 +79,7 @@ const listRoutes = [
   }
 ]
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   root: {
