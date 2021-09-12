@@ -19,6 +19,7 @@ import {
 
 import AddIcon from '@material-ui/icons/Add'
 import AdminLayout from '../../../hoc/adminLayout'
+import Wysiwyg from '../../../utils/form/wysiwyg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +57,10 @@ const AddArticle = (props) => {
     helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values] : null
   });
 
+  const handleEditorState = (state) => {
+    console.log('values', state)
+  }
+
   return (
     <AdminLayout section="Add article">
       <form className={classes.root} onSubmit={formik.handleSubmit}>
@@ -80,8 +85,8 @@ const AddArticle = (props) => {
           {...formik.getFieldProps('excerpt')}
           {...errorHelper(formik, 'excerpt')}
         />
-        {/*----------       excerpt     ----------*/}
-        <TextField
+        {/*----------       content     ----------*/}
+        {/* <TextField
           fullWidth
           variant="outlined"
           name="content"
@@ -91,7 +96,13 @@ const AddArticle = (props) => {
           minRows="4"
           {...formik.getFieldProps('content')}
           {...errorHelper(formik, 'content')}
-        />
+        /> */}
+
+        <div>
+          <Wysiwyg handleEditorState={(state) => handleEditorState(state)}/>
+        </div>
+
+
         {/*--------------------*/}
         <Divider />
         <h4>Movie data and score</h4>
