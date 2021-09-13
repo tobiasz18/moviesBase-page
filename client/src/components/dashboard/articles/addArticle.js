@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFormik, FieldArray, FormikProvider } from 'formik';
 import { initialValues, validationSchema } from './validationSchema';
 import Button from '@material-ui/core/Button';
@@ -41,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddArticle = (props) => {
+  const [editorBlur, setEditorBlur] = useState(false)
   const actorsValue = useRef('')
   const classes = useStyles()
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
@@ -58,7 +60,11 @@ const AddArticle = (props) => {
   });
 
   const handleEditorState = (state) => {
-    console.log('values', state)
+    formik.setFieldValue('content', state, true)
+  }
+
+  const handleEditorBlur = (blur) => {
+    setEditorBlur(true)
   }
 
   return (
@@ -99,7 +105,22 @@ const AddArticle = (props) => {
         /> */}
 
         <div>
-          <Wysiwyg handleEditorState={(state) => handleEditorState(state)}/>
+          <Wysiwyg
+            handleEditorState={(state) => handleEditorState(state)}
+            handleEditorBlur={(blur) => handleEditorBlur(blur)}
+          />
+
+          {formik.errors.content && editorBlur ?
+            <FormHelperText error={true}>
+              {formik.errors.content}
+            </FormHelperText>
+            : null}
+
+          <TextField
+            type="hidden"
+            name="content"
+            {...formik.getFieldProps('content')}
+          />
         </div>
 
 

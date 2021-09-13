@@ -5,7 +5,7 @@ import { stateToHTML } from 'draft-js-export-html'
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
-const Wysiwyg = ({handleEditorState}) => {
+const Wysiwyg = ({handleEditorState, handleEditorBlur}) => {
   const [editorState, seteditorState] = useState(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState) => {
@@ -22,6 +22,7 @@ const Wysiwyg = ({handleEditorState}) => {
       wrapperClassName="wrapperClassName"
       editorClassName="editorClassName"
       onEditorStateChange={onEditorStateChange}
+      onBlur={handleEditorBlur}
     />
   )
 }
