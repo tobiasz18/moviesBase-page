@@ -32,7 +32,6 @@ const Routes = () => {
   useEffect(() => {
     if (users.auth !== null) {
       setLoading(false)
-      console.log('oho')
     }
   }, [users])
 

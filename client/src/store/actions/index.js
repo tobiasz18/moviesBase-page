@@ -1,4 +1,5 @@
 import {
+  ADD_ARTICLE,
   AUTH_USERS,
   CLEAR_ARTICLE,
   CLEAR_NOTIFICATION,
@@ -12,6 +13,10 @@ import {
 
 //----- ARTICLES -----//
 
+export const addArticle = (article) => ({
+  type: ADD_ARTICLE,
+  payload: article
+})
 export const getArticles = (sort) => ({
   type: GET_ARTICLES,
   payload: sort
@@ -27,7 +32,6 @@ export const clearArticle = () => {
     })
   }
 }
-
 
 //----- NOTIFICATIONS -----//
 

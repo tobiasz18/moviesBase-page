@@ -1,5 +1,6 @@
 import * as articles from './index'
 import axios from 'axios'
+import { getAuthHeader } from '../../utils/tools'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
@@ -30,8 +31,19 @@ export const getArticleAsync = (id) => {
       const response = await axios.get(`/api/articles/getById/${id}`)
       dispatch(articles.getArticle(response.data[0]))
     } catch (error) {
-      dispatch(articles.errorGlobal('Ups something wrong with article'))
+      dispatch(articles.errorGlobal(error.response.data.message))
     }
   }
 }
 
+export const addArticleAsync = (article) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`/api/articles/admin/add_articles`, article, getAuthHeader())
+      dispatch(articles.addArticle(response.data))
+      dispatch(articles.successGlobal('New article have been added'))
+    } catch (error) {
+      dispatch(articles.errorGlobal(error.response.data.message))
+    }
+  }
+}
