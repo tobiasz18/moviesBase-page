@@ -13,6 +13,8 @@ import bgImage from "../assets/img/sidebar-2.jpg"
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonIcon from '@material-ui/icons/Person';
 import FolderIcon from '@material-ui/icons/Folder';
+import { Typography } from '@material-ui/core';
+import { Divider, Box } from '@material-ui/core';
 
 function AdminLayout(props) {
   const classes = useStyles();
@@ -49,9 +51,12 @@ function AdminLayout(props) {
         ) : null}
       </Drawer>
       <main className={classes.content}>
-        <div className="test">
-          <h5>{props.section}</h5>
-        </div>
+        <Box pb={1} mb={1}>
+          <Typography variant="h6" component="h1">
+            {props.section}
+          </Typography>
+          <Divider light={true} component="hr" />
+        </Box>
         {props.children}
       </main>
     </div>

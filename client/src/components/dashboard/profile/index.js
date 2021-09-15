@@ -3,7 +3,7 @@ import AdminLayout from '../../../hoc/adminLayout'
 
 const Profile = () => {
   return (
-    <AdminLayout>
+    <AdminLayout section="Profile">
       Profile
     </AdminLayout>
   )
