@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import AdminLayout from '../../../hoc/adminLayout'
 import { Link } from 'react-router-dom'
 import { Box, Button } from '@material-ui/core'
@@ -10,6 +11,7 @@ import {
   InputBase,
   IconButton
 } from '@material-ui/core';
+import { getPaginateArticlesAsync } from '../../../store/actions/articles_actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Articles = (props) => {
   const classes = useStyles()
+ // const articles = useSelector(state => state.articles)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getPaginateArticlesAsync())
+  }, [dispatch])
 
   return (
     <AdminLayout section="Articles">
@@ -48,7 +56,7 @@ const Articles = (props) => {
             Add article
           </Button>
         </Box>
-        <Box ml={1}>
+        <Box ml={1} flexDirection="row" >
           <Paper component="form" className={classes.root} onSubmit={() => alert('search')}>
             <IconButton className={classes.iconButton} aria-label="menu">
               @

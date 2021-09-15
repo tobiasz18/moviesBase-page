@@ -6,6 +6,7 @@ import {
   ERROR_GLOBAL,
   GET_ARTICLE,
   GET_ARTICLES,
+  GET_PAGINATE_ARTICLES,
   SIGN_OUT_USER,
   SITE_LAYOUT,
   SUCCESS_GLOBAL
@@ -16,6 +17,10 @@ import {
 export const addArticle = (article) => ({
   type: ADD_ARTICLE,
   payload: article
+})
+export const getPaginateArticles = (articles) => ({
+  type: GET_PAGINATE_ARTICLES,
+  payload: articles
 })
 export const getArticles = (sort) => ({
   type: GET_ARTICLES,

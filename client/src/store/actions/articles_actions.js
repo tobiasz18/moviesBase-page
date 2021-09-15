@@ -47,3 +47,17 @@ export const addArticleAsync = (article) => {
     }
   }
 }
+
+export const getPaginateArticlesAsync = (page = 1, limit = 5) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`/api/articles/admin/paginate`, {
+        page,
+        limit
+      }, getAuthHeader())
+      dispatch(articles.getPaginateArticles(response.data))
+    } catch (error) {
+      dispatch(articles.errorGlobal(error.response.data.message))
+    }
+  }
+}

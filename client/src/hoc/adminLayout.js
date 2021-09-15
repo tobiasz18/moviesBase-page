@@ -55,7 +55,7 @@ function AdminLayout(props) {
           <Typography variant="h6" component="h1">
             {props.section}
           </Typography>
-          <Divider light={true} component="hr" />
+          <Divider className={classes.divider} light={true} component="hr" />
         </Box>
         {props.children}
       </main>
@@ -132,6 +132,9 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: '#FFF',
+  },
+  divider: {
+    marginTop: theme.spacing(1)
   }
 }));
 
