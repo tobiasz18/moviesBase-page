@@ -12,7 +12,7 @@ import {
   IconButton
 } from '@material-ui/core';
 import { getPaginateArticlesAsync } from '../../../store/actions/articles_actions'
-import CustomizedTables from './paginate'
+import DataTable from './paginate'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Articles = (props) => {
   const classes = useStyles()
-  // const articles = useSelector(state => state.articles)
+  const articles = useSelector(state => state.articles)
   const dispatch = useDispatch()
+  let arts = articles.adminArticles
 
   useEffect(() => {
     dispatch(getPaginateArticlesAsync())
@@ -72,7 +73,7 @@ const Articles = (props) => {
           </Paper>
         </Box>
       </Box>
-      <CustomizedTables />
+      <DataTable arts={arts} />
     </AdminLayout>
   )
 }
