@@ -3,6 +3,7 @@ import {
   AUTH_USERS,
   CLEAR_ARTICLE,
   CLEAR_NOTIFICATION,
+  DELETE_ARTICLE,
   ERROR_GLOBAL,
   GET_ARTICLE,
   GET_ARTICLES,
@@ -29,6 +30,10 @@ export const getArticles = (sort) => ({
 export const getArticle = (article) => ({
   type: GET_ARTICLE,
   payload: article
+})
+export const deleteArticle = (id) => ({
+  type: DELETE_ARTICLE,
+  id
 })
 export const clearArticle = () => {
   return (dispatch) => {

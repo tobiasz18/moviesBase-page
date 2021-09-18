@@ -39,11 +39,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const PaginateComponent = ({ arts, changePage }) => {
+const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
   const [page, setpage] = useState(1)
   const handleChange = (event, value) => {
     setpage(value)
     changePage(value)
+    console.log(' test tast', arts)
   }
 
   return (
@@ -75,7 +76,10 @@ const PaginateComponent = ({ arts, changePage }) => {
                           <Button variant="contained" >
                             Status
                           </Button>
-                          <Button variant="contained" color="error">
+                          <Button onClick={(event) => {
+                            deleteArticle(row._id)
+                            event.preventDefault()
+                            }} variant="contained" color="error">
                             Remove
                           </Button>
                         </Stack>

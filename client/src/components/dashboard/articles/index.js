@@ -11,7 +11,7 @@ import {
   InputBase,
   IconButton
 } from '@material-ui/core';
-import { getPaginateArticlesAsync } from '../../../store/actions/articles_actions'
+import { deleteArticleAsync, getPaginateArticlesAsync } from '../../../store/actions/articles_actions'
 import PaginateComponent from './paginate'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +47,10 @@ const Articles = (props) => {
     dispatch(getPaginateArticlesAsync(page))
   }
 
+  const deleteAdminArticle = (id) => {
+    dispatch(deleteArticleAsync(id))
+  }
+
   return (
     <AdminLayout section="Articles">
       <Box display="flex" pb={4}>
@@ -77,9 +81,10 @@ const Articles = (props) => {
           </Paper>
         </Box>
       </Box>
-      <PaginateComponent 
-        arts={arts} 
-        changePage={(page) => onChangePaginatePage(page)} 
+      <PaginateComponent
+        arts={arts}
+        changePage={(page) => onChangePaginatePage(page)}
+        deleteArticle={(id) => deleteAdminArticle(id)}
       />
     </AdminLayout>
   )

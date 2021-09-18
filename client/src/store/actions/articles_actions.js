@@ -48,7 +48,7 @@ export const addArticleAsync = (article) => {
   }
 }
 
-export const getPaginateArticlesAsync = (page = 1, limit = 5) => {
+export const getPaginateArticlesAsync = (page = 1, limit = 8) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(`/api/articles/admin/paginate`, {
@@ -61,3 +61,15 @@ export const getPaginateArticlesAsync = (page = 1, limit = 5) => {
     }
   }
 }
+
+export const deleteArticleAsync = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/articles/admin/articles/${id}`, getAuthHeader())
+      dispatch(articles.deleteArticle(id))
+    } catch (error) {
+      dispatch(articles.errorGlobal(error.response.data.message))
+    }
+  }
+}
+
