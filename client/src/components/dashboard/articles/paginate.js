@@ -36,7 +36,6 @@ export default function DataTable({ arts }) {
 
     const startDate = new Date(artData).toLocaleDateString('en-ZA');
     // const startDate  = '2021-09-16';
-
     const endDate = today;
     const diffInMs = new Date(endDate) - new Date(startDate)
     const diffInDays = diffInMs / (1000 * 60 * 60 * 24);

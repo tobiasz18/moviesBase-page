@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { getPaginateArticlesAsync } from '../../../store/actions/articles_actions'
 import DataTable from './paginate'
+import ServerPaginationGrid from './paginate2'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +74,8 @@ const Articles = (props) => {
           </Paper>
         </Box>
       </Box>
-      <DataTable arts={arts} />
+      {/* <DataTable arts={arts} /> */}
+      <ServerPaginationGrid arts={arts}  />
     </AdminLayout>
   )
 }
