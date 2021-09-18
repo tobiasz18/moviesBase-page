@@ -44,7 +44,6 @@ const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
   const handleChange = (event, value) => {
     setpage(value)
     changePage(value)
-    console.log(' test tast', arts)
   }
 
   return (
@@ -53,7 +52,7 @@ const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
         arts && arts.docs ?
           <>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 750 }} aria-label="customized table">
+              <Table sx={{ minWidth: 450, width: 950 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>Created</StyledTableCell>
