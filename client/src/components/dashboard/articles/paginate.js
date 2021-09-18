@@ -52,7 +52,7 @@ const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
         arts && arts.docs ?
           <>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 450, width: 950 }} aria-label="customized table">
+              <Table size="small" sx={{ minWidth: 450 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>Created</StyledTableCell>
@@ -63,22 +63,22 @@ const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
                 </TableHead>
                 <TableBody>
                   {arts.docs.map((row, index) => (
-                    <StyledTableRow  key={`${row.title + index}`}>
-                      <StyledTableCell style={{textAlign: 'left'}} component="th" scope="row">
+                    <StyledTableRow key={`${row.title + index}`}>
+                      <StyledTableCell style={{ textAlign: 'left' }} component="th" scope="row">
                         <Moment to={row.date}></Moment>
                       </StyledTableCell>
-                      <StyledTableCell style={{textAlign: 'left'}} align="left">{row.title}</StyledTableCell>
+                      <StyledTableCell style={{ textAlign: 'left' }} align="left">{row.title}</StyledTableCell>
                       <StyledTableCell align="left">{row.score}</StyledTableCell>
                       <StyledTableCell align="left">
-                        <Stack style={{float: 'right'}} direction="row" spacing={1}>
+                        <Stack style={{ float: 'right' }} direction="row" spacing={1}>
                           <Button variant="contained" color="secondary">Edit</Button>
                           <Button variant="contained" >
                             Status
                           </Button>
-                          <Button onClick={(event) => {
+                          <Button onClick={() => {
+                            window.confirm("Are you sure you wish to delete this article?") &&
                             deleteArticle(row._id)
-                            event.preventDefault()
-                            }} variant="contained" color="error">
+                          }} variant="contained" color="error">
                             Remove
                           </Button>
                         </Stack>
