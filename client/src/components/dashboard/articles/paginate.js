@@ -24,6 +24,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    fontWeight: 500,
+    textAlign: 'center'
   },
 }));
 
@@ -61,14 +63,14 @@ const PaginateComponent = ({ arts, changePage }) => {
                 </TableHead>
                 <TableBody>
                   {arts.docs.map((row, index) => (
-                    <StyledTableRow key={`${row.title + index}`}>
-                      <StyledTableCell component="th" scope="row">
+                    <StyledTableRow  key={`${row.title + index}`}>
+                      <StyledTableCell style={{textAlign: 'left'}} component="th" scope="row">
                         <Moment to={row.date}></Moment>
                       </StyledTableCell>
-                      <StyledTableCell align="left">{row.title}</StyledTableCell>
+                      <StyledTableCell style={{textAlign: 'left'}} align="left">{row.title}</StyledTableCell>
                       <StyledTableCell align="left">{row.score}</StyledTableCell>
                       <StyledTableCell align="left">
-                        <Stack direction="row" spacing={1}>
+                        <Stack style={{float: 'right'}} direction="row" spacing={1}>
                           <Button variant="contained" color="secondary">Edit</Button>
                           <Button variant="contained" >
                             Status
