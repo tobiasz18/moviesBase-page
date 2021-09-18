@@ -1,7 +1,6 @@
 import { ADD_ARTICLE, CLEAR_ARTICLE, DELETE_ARTICLE, GET_ARTICLE, GET_ARTICLES, GET_PAGINATE_ARTICLES } from "../types";
 
 export default function articleReducer(state = [], action) {
-  console.log(action)
   switch (action.type) {
     case GET_ARTICLES:
       return { ...state, articles: action.payload }

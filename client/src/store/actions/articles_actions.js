@@ -67,6 +67,8 @@ export const deleteArticleAsync = (id) => {
     try {
       await axios.delete(`/api/articles/admin/articles/${id}`, getAuthHeader())
       dispatch(articles.deleteArticle(id))
+      dispatch(articles.successGlobal('The article has been deleted'))
+
     } catch (error) {
       dispatch(articles.errorGlobal(error.response.data.message))
     }

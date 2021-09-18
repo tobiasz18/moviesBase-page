@@ -35,7 +35,6 @@ const Auth = (props) => {
   const handleSubmit = (values) => {
     if (register) {
       dispatch(registerUser(values))
-      console.log('register')
     } else {
       dispatch(signInUser(values))
     }
