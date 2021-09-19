@@ -10,7 +10,8 @@ import {
   GET_PAGINATE_ARTICLES,
   SIGN_OUT_USER,
   SITE_LAYOUT,
-  SUCCESS_GLOBAL
+  SUCCESS_GLOBAL,
+  UPDATE_STATUS_ARTICLE
 } from "../types";
 
 //----- ARTICLES -----//
@@ -42,6 +43,11 @@ export const clearArticle = () => {
     })
   }
 }
+export const updateStatusArticle = (article) => ({
+  type: UPDATE_STATUS_ARTICLE,
+  payload: article
+})
+
 
 //----- NOTIFICATIONS -----//
 

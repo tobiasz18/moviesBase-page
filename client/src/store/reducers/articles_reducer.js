@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, CLEAR_ARTICLE, DELETE_ARTICLE, GET_ARTICLE, GET_ARTICLES, GET_PAGINATE_ARTICLES } from "../types";
+import { ADD_ARTICLE, CLEAR_ARTICLE, DELETE_ARTICLE, GET_ARTICLE, GET_ARTICLES, GET_PAGINATE_ARTICLES, UPDATE_STATUS_ARTICLE } from "../types";
 
 export default function articleReducer(state = [], action) {
   switch (action.type) {
@@ -16,6 +16,13 @@ export default function articleReducer(state = [], action) {
           ...state.adminArticles, docs: [
             ...state.adminArticles.docs.filter(article => article._id !== action.id)
           ]
+        }
+      }
+    case UPDATE_STATUS_ARTICLE:
+      return {
+        ...state, adminArticles: {
+          ...state.adminArticles,
+          docs: action.payload
         }
       }
     case CLEAR_ARTICLE:

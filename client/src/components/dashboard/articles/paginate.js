@@ -39,7 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
+const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus }) => {
   const [page, setpage] = useState(1)
   const handleChange = (event, value) => {
     setpage(value)
@@ -71,9 +71,17 @@ const PaginateComponent = ({ arts, changePage, deleteArticle }) => {
                       <StyledTableCell align="left">{row.score}</StyledTableCell>
                       <StyledTableCell align="left">
                         <Stack style={{ float: 'right' }} direction="row" spacing={1}>
-                          <Button variant="contained" color="secondary">Edit</Button>
-                          <Button variant="contained" >
-                            Status
+                          <Button v
+                            ariant="contained" 
+                            color="secondary"
+                          >Edit</Button>
+                          <Button 
+                            variant="contained"
+                            onClick={() => {
+                              updateStatus(row.status, row._id)
+                            }}
+                          >
+                            {row.status}
                           </Button>
                           <Button onClick={() => {
                             window.confirm("Are you sure you wish to delete this article?") &&

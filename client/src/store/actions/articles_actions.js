@@ -75,3 +75,20 @@ export const deleteArticleAsync = (id) => {
   }
 }
 
+export const updateStatusArticleAsync = (status, _id) => {
+  return async (dispatch, getState) => {
+    try {
+      const article = await axios.patch(`/api/articles/admin/articles/${_id}`, {
+        status
+      }, getAuthHeader())
+
+      const state = getState().articles.adminArticles.docs
+      state[state.findIndex((item) => item._id === _id)] = article.data
+
+      dispatch(articles.updateStatusArticle(state))
+      dispatch(articles.successGlobal('Status changed successfully'))
+    } catch (error) {
+      dispatch(articles.errorGlobal(error.response.data.message))
+    }
+  }
+}
