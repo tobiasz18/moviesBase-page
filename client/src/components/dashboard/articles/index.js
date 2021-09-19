@@ -48,8 +48,8 @@ const Articles = (props) => {
     dispatch(getPaginateArticlesAsync(page))
   }
 
-  const deleteAdminArticle = (id) => {
-    dispatch(deleteArticleAsync(id))
+  const deleteAdminArticle = (_id) => {
+    dispatch(deleteArticleAsync(_id))
   }
 
   const handleStatusChange = (status, _id) => {
@@ -90,7 +90,7 @@ const Articles = (props) => {
       <PaginateComponent
         arts={arts}
         changePage={(page) => onChangePaginatePage(page)}
-        deleteArticle={(id) => deleteAdminArticle(id)}
+        deleteArticle={(_id) => deleteAdminArticle(_id)}
         updateStatus={(status, _id) => handleStatusChange(status, _id)}
       />
     </AdminLayout>

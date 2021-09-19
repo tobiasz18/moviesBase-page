@@ -62,11 +62,15 @@ export const getPaginateArticlesAsync = (page = 1, limit = 8) => {
   }
 }
 
-export const deleteArticleAsync = (id) => {
-  return async (dispatch) => {
+export const deleteArticleAsync = (_id) => {
+  return async (dispatch, getState) => {
     try {
-      await axios.delete(`/api/articles/admin/articles/${id}`, getAuthHeader())
-      dispatch(articles.deleteArticle(id))
+      await axios.delete(`/api/articles/admin/articles/${_id}`, getAuthHeader())
+
+      const stateDocs = getState().articles.adminArticles.docs
+      const updatedStateDocs = stateDocs.filter((article) => article._id !== _id)
+
+      dispatch(articles.deleteArticle(updatedStateDocs))
       dispatch(articles.successGlobal('The article has been deleted'))
 
     } catch (error) {

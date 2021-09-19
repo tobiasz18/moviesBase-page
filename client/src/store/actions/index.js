@@ -32,9 +32,9 @@ export const getArticle = (article) => ({
   type: GET_ARTICLE,
   payload: article
 })
-export const deleteArticle = (id) => ({
+export const deleteArticle = (docs) => ({
   type: DELETE_ARTICLE,
-  id
+  payload: docs
 })
 export const clearArticle = () => {
   return (dispatch) => {

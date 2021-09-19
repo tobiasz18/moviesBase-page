@@ -13,9 +13,7 @@ export default function articleReducer(state = [], action) {
     case DELETE_ARTICLE:
       return {
         ...state, adminArticles: {
-          ...state.adminArticles, docs: [
-            ...state.adminArticles.docs.filter(article => article._id !== action.id)
-          ]
+          ...state.adminArticles, docs: action.payload
         }
       }
     case UPDATE_STATUS_ARTICLE:
