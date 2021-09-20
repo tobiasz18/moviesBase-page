@@ -26,7 +26,6 @@ const Home = () => {
     // only on the first render
     if (articles && !articles.articles) {
       dispatch(getArticlesAsync(initialSort))
-      console.log('RUN')
     }
   }, [dispatch, articles])
 

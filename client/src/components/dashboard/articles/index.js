@@ -40,9 +40,9 @@ const Articles = (props) => {
   const dispatch = useDispatch()
   let arts = articles.adminArticles
 
-  useEffect(() => {
-    dispatch(getPaginateArticlesAsync())
-  }, [dispatch])
+  const handleEditArticle = (_id) => {
+    props.history.push(`/dashboard/articles/edit/${_id}`)
+  }
 
   const onChangePaginatePage = (page) => {
     dispatch(getPaginateArticlesAsync(page))
@@ -56,6 +56,10 @@ const Articles = (props) => {
     const newStatus = status === 'public' ? 'draft' : 'public'
     dispatch(updateStatusArticleAsync(newStatus, _id))
   }
+
+  useEffect(() => {
+    dispatch(getPaginateArticlesAsync())
+  }, [dispatch])
 
   return (
     <AdminLayout section="Articles">
@@ -92,6 +96,7 @@ const Articles = (props) => {
         changePage={(page) => onChangePaginatePage(page)}
         deleteArticle={(_id) => deleteAdminArticle(_id)}
         updateStatus={(status, _id) => handleStatusChange(status, _id)}
+        editArticle={(_id) => handleEditArticle(_id)}
       />
     </AdminLayout>
   )

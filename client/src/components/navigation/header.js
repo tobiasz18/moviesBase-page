@@ -43,7 +43,6 @@ const Header = (props) => {
     } else {
       dispatch(changeLayout(''))
     }
-    console.log(props.location.pathname === '/dashboard')
   }, [props.location.pathname, dispatch])
 
   return (

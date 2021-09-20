@@ -39,7 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus }) => {
+const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus, editArticle }) => {
   const [page, setpage] = useState(1)
   const handleChange = (event, value) => {
     setpage(value)
@@ -71,9 +71,10 @@ const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus }) =>
                       <StyledTableCell align="left">{row.score}</StyledTableCell>
                       <StyledTableCell align="left">
                         <Stack style={{ float: 'right' }} direction="row" spacing={1}>
-                          <Button v
-                            ariant="contained" 
+                          <Button      
+                            variant="contained" 
                             color="secondary"
+                            onClick={() => editArticle(row._id)}
                           >Edit</Button>
                           <Button 
                             variant="contained"
