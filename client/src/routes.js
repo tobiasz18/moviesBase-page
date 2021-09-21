@@ -18,6 +18,7 @@ import Articles from "./components/dashboard/articles";
 import authguard from "./hoc/authGuard";
 import Article from "./components/articles/article";
 import AddArticle from "./components/dashboard/articles/addArticle";
+import EditArticle from "./components/dashboard/articles/edit";
 
 
 const Routes = () => {
@@ -35,12 +36,16 @@ const Routes = () => {
     }
   }, [users])
 
+
+  http://localhost:3000/dashboard/articles/edit/6148ee54e2f4525584d6319a
+
   return (
     <BrowserRouter>
       <Header />
       {loading ? <Loader /> :
         <MainLayout>
-          <Switch>    
+          <Switch>
+            <Route path="/dashboard/articles/edit/:id" component={authguard(EditArticle, true)} />
             <Route path="/dashboard/articles/add" component={authguard(AddArticle, true)} />
             <Route path="/dashboard/articles" component={authguard(Articles, true)} />
             <Route path="/dashboard/profile" component={authguard(Profile)} />

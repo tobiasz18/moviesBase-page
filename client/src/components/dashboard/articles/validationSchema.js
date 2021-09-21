@@ -3,13 +3,13 @@ import * as yup from 'yup';
 let toTest = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
 
 export const initialValues = {
-  title:'Testable article - numer',
+  title:'',
   content:'',
-  excerpt: toTest,
-  score:'3',
-  director:'Marcin prokop',
-  actors:['julia dagmara', 'binladen alla', 'Marcin prokop'],
-  status:'draft'
+  excerpt: '',
+  score:'',
+  director:'',
+  actors:[],
+  status:''
 }
 
 export const validationSchema = yup.object({
