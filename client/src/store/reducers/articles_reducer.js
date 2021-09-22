@@ -6,8 +6,12 @@ export default function articleReducer(state = [], action) {
       return { ...state, articles: action.payload }
     case ADD_ARTICLE:
       return { ...state, lastAdded: action.payload, success: true }
+
     case GET_ARTICLE:
       return { ...state, current: action.payload }
+    case CLEAR_ARTICLE:
+      return { ...state, current: null }
+      
     case GET_PAGINATE_ARTICLES:
       return { ...state, adminArticles: action.payload }
     case DELETE_ARTICLE:
@@ -23,8 +27,7 @@ export default function articleReducer(state = [], action) {
           docs: action.payload
         }
       }
-    case CLEAR_ARTICLE:
-      return { ...state, current: null }
+
     default:
       return state
   }

@@ -1,19 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
-import { EditorState } from 'draft-js'
+import { EditorState, ContentState } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
+import htmlToDraft from 'html-to-draftjs'
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
-const Wysiwyg = ({handleEditorState, handleEditorBlur}) => {
-  const [editorState, seteditorState] = useState(EditorState.createEmpty())
+const Wysiwyg = ({ handleEditorState, handleEditorBlur, editContent }) => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState) => {
-    seteditorState(editorState)
+    setEditorState(editorState)
 
-    const contentToHtml = stateToHTML(editorState.getCurrentContent())
-    handleEditorState(contentToHtml)
+    const HTMLdata = stateToHTML(editorState.getCurrentContent())
+    handleEditorState(HTMLdata)
   }
+
+  useEffect(() => {
+    if (editContent) {
+      const contentBlock = htmlToDraft(editContent)
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
+      const editorState = EditorState.createWithContent(contentState)
+
+      setEditorState(editorState)
+    }
+  }, [editContent])
 
   return (
     <Editor

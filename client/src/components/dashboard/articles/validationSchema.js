@@ -1,15 +1,13 @@
 import * as yup from 'yup';
 
-let toTest = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
-
 export const initialValues = {
-  title:'',
-  content:'',
+  title: '',
+  content: '',
   excerpt: '',
-  score:'',
-  director:'',
-  actors:[],
-  status:''
+  score: '',
+  director: '',
+  actors: [],
+  status: ''
 }
 
 export const validationSchema = yup.object({
@@ -29,7 +27,7 @@ export const validationSchema = yup.object({
     .required('Director is required'),
   actors: yup
     .array()
-    .min(3,'Minimum is 3')
+    .min(3, 'Minimum is 3')
     .required('Must have actors'),
   score: yup
     .number()

@@ -36,9 +36,6 @@ const Routes = () => {
     }
   }, [users])
 
-
-  http://localhost:3000/dashboard/articles/edit/6148ee54e2f4525584d6319a
-
   return (
     <BrowserRouter>
       <Header />

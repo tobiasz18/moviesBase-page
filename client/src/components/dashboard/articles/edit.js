@@ -4,6 +4,7 @@ import { useFormik, FieldArray, FormikProvider } from 'formik'
 import { initialValues, validationSchema } from './validationSchema'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
+
 import {
   TextField,
   FormControl,
@@ -23,23 +24,29 @@ import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
 import AdminLayout from '../../../hoc/adminLayout'
 import Wysiwyg from '../../../utils/form/wysiwyg'
-import { addArticleAsync } from '../../../store/actions/articles_actions'
+import { addArticleAsync, getArticleAsync } from '../../../store/actions/articles_actions'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
   const [isSubmiting, setSubmiting] = useState(false)
-  const actorsValue = useRef('')
-  const classes = useStyles()
-  const dispatch = useDispatch()
   const notifications = useSelector((state) => state.notifications)
+  const [initValue, setInitValue] = useState(initialValues)
+  const actorsValue = useRef('')
+  const dispatch = useDispatch()
+  const classes = useStyles()
+
+  // EDIT ARTICLE COMPONENT ↓
+  const currentArticle = useSelector((state) => state.articles)
+  const [editContentState, setEditContentState] = useState(null)
+  // EDIT ARTICLE COMPONENT ↑
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: initialValues,
+    initialValues: initValue,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setSubmiting(true)
-      dispatch(addArticleAsync(values))
+    //  dispatch(addArticleAsync(values))
     },
   })
 
@@ -53,7 +60,7 @@ const EditArticle = (props) => {
   }
 
   const handleEditorBlur = (blur) => {
-    setEditorBlur(true)
+     setEditorBlur(true)
   }
 
   useEffect(() => {
@@ -65,22 +72,31 @@ const EditArticle = (props) => {
     }
   }, [notifications, props.history])
 
+  useEffect(() => {
+    dispatch(getArticleAsync(props.match.params.id))
+
+  }, [dispatch, props.match.params.id])
+
+ // EDIT ARTICLE COMPONENT ↓
 
   useEffect(() => {
-   
-    return () => {
-      
+    if (currentArticle && currentArticle.current) {
+      setInitValue(currentArticle.current)
+      setEditContentState(currentArticle.current.content)
+    } else {
+      console.log('NOTTTTTTTTTT')
     }
-  }, [])
+  }, [currentArticle])
   
-  
+  // EDIT ARTICLE COMPONENT ↑
+
   return (
     <AdminLayout section="Edit article">
       {
         isSubmiting ?
           <Loader /> :
           <form className={classes.root} onSubmit={formik.handleSubmit}>
-            {/*----------       Title     ----------*/}
+            {/*----------    ↓   Title  ↓   ----------*/}
             <TextField
               fullWidth
               variant="outlined"
@@ -89,7 +105,7 @@ const EditArticle = (props) => {
               {...formik.getFieldProps('title')}
               {...errorHelper(formik, 'title')}
             />
-            {/*----------       excerpt     ----------*/}
+            {/*----------    ↓   excerpt   ↓  ----------*/}
             <TextField
               fullWidth
               variant="outlined"
@@ -101,7 +117,7 @@ const EditArticle = (props) => {
               {...formik.getFieldProps('excerpt')}
               {...errorHelper(formik, 'excerpt')}
             />
-            {/*----------       content     ----------*/}
+            {/*----------   ↓    content  ↓   ----------*/}
             <div>
               <Typography gutterBottom={true} variant="subtitle2" component="h5">
                 Content:
@@ -110,6 +126,7 @@ const EditArticle = (props) => {
                 <Wysiwyg
                   handleEditorState={(state) => handleEditorState(state)}
                   handleEditorBlur={(blur) => handleEditorBlur(blur)}
+                  editContent={editContentState}
                 />
               </div>
               {formik.errors.content && editorBlur ?
@@ -117,6 +134,7 @@ const EditArticle = (props) => {
                   {formik.errors.content}
                 </FormHelperText>
                 : null}
+              {/* ↓ mirror of wysiwyg ↓ */}
               <TextField
                 type="hidden"
                 name="content"
@@ -126,7 +144,7 @@ const EditArticle = (props) => {
             <Typography variant="subtitle2" component="h4">
               Movie data and score
             </Typography>
-            {/*----------       director     ----------*/}
+            {/*----------    ↓   director  ↓   ----------*/}
             <TextField
               fullWidth
               variant="outlined"
@@ -136,7 +154,7 @@ const EditArticle = (props) => {
               {...formik.getFieldProps('director')}
               {...errorHelper(formik, 'director')}
             />
-            {/*----------       Add the actors by FieldArray  ----------*/}
+            {/*----------    ↓   Add the actors by FieldArray ↓ ----------*/}
             <FormikProvider value={formik}>
               <Typography variant="subtitle2" component="h4">
                 Add the actors:
@@ -179,6 +197,7 @@ const EditArticle = (props) => {
                       </FormHelperText>
                       : null}
                     <Box display="flex">
+                      { }
                       {formik.values.actors.map((actor, index) => {
                         return (
                           <Box key={actor} mt={2} mr={1}>
@@ -195,7 +214,7 @@ const EditArticle = (props) => {
                 )}
               />
             </FormikProvider>
-            {/*----------     score     ----------*/}
+            {/*----------  ↓   score   ↓  ----------*/}
             <TextField
               fullWidth
               name="score"
@@ -205,7 +224,7 @@ const EditArticle = (props) => {
               {...formik.getFieldProps('score')}
               {...errorHelper(formik, 'score')}
             />
-            {/*----------     Select a status     ----------*/}
+            {/*----------  ↓   Select a status  ↓   ----------*/}
             <FormControl variant="outlined" className={classes.formControl}>
               <Typography gutterBottom={true} variant="subtitle2" component="h4">
                 Status:
@@ -228,13 +247,13 @@ const EditArticle = (props) => {
                 </FormHelperText>
                 : null}
             </FormControl>
-            {/*----------     Divider and Submit Button   ----------*/}
+            {/*----------  ↓   Divider and Submit Button ↓  ----------*/}
             <Box mt={1}>
               <Box mb={2}>
                 <Divider />
               </Box>
-              <Button color="primary" variant="contained" type="submit">
-                Add article
+              <Button color="secondary" variant="contained" type="submit">
+                Edit article
               </Button>
             </Box>
           </form>
