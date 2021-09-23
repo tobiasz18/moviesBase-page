@@ -24,7 +24,7 @@ import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
 import AdminLayout from '../../../hoc/adminLayout'
 import Wysiwyg from '../../../utils/form/wysiwyg'
-import { addArticleAsync, getArticleAsync } from '../../../store/actions/articles_actions'
+import { getArticleAsync, updateArticleAsync } from '../../../store/actions/articles_actions'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
@@ -45,8 +45,10 @@ const EditArticle = (props) => {
     initialValues: initValue,
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log(values)
       setSubmiting(true)
-    //  dispatch(addArticleAsync(values))
+      dispatch(updateArticleAsync(values, props.params.match.id))  
+
     },
   })
 
@@ -60,19 +62,21 @@ const EditArticle = (props) => {
   }
 
   const handleEditorBlur = (blur) => {
-     setEditorBlur(true)
+//    setEditorBlur(true)
   }
 
   useEffect(() => {
-    if (notifications && notifications.success) {
-      // props.history.push(`/dashboard/articles`)
-    }
-    if (notifications && notifications.error) {
-      setSubmiting(false)
-    }
+    // if (notifications && notifications.success) {
+    //   // props.history.push(`/dashboard/articles`)
+    // }
+    // if (notifications && notifications.error) {
+   
+    // }
+    setSubmiting(false)
   }, [notifications, props.history])
 
   useEffect(() => {
+      
     dispatch(getArticleAsync(props.match.params.id))
 
   }, [dispatch, props.match.params.id])

@@ -26,11 +26,14 @@ export const getArticlesAsync = (sort) => {
 }
 // Get single article by id
 export const getArticleAsync = (id) => {
+  console.log('somethink wrong', id)
   return async (dispatch) => {
     try {
       const response = await axios.get(`/api/articles/getById/${id}`)
+      console.log(response, 'resp')
       dispatch(articles.getArticle(response.data[0]))
     } catch (error) {
+      console.log('somethink wrong')
       dispatch(articles.errorGlobal(error.response.data.message))
     }
   }
@@ -97,3 +100,18 @@ export const updateStatusArticleAsync = (status, _id) => {
   }
 }
 
+export const updateArticleAsync = (values, _id) => {
+  console.log('article z update', values)
+  return async (dispatch) => {
+    try {
+      ///admin/articles/:id
+      // const article = await axios.patch(`/api/articles/admin/articles/${_id}`,values, getAuthHeader())
+      // console.log('mr article', article)
+      // dispatch(articles.getArticle(article))
+
+    } catch (error) {
+      console.log('fail')
+      dispatch(articles.errorGlobal(error.response.data.message))
+    }
+  }
+}
