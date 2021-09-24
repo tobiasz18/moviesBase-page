@@ -4,7 +4,6 @@ import { useFormik, FieldArray, FormikProvider } from 'formik'
 import { initialValues, validationSchema } from './validationSchema'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
-
 import {
   TextField,
   FormControl,
@@ -19,12 +18,12 @@ import {
   IconButton,
   Chip
 } from '@material-ui/core';
-
 import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
 import AdminLayout from '../../../hoc/adminLayout'
 import Wysiwyg from '../../../utils/form/wysiwyg'
-import { getArticleAsync, updateArticleAsync } from '../../../store/actions/articles_actions'
+import { getAminArticleById, updateArticleAsync } from '../../../store/actions/articles_actions'
+import { clearCurrentArticle } from '../../../store/actions'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
@@ -45,10 +44,8 @@ const EditArticle = (props) => {
     initialValues: initValue,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values)
-      setSubmiting(true)
-      dispatch(updateArticleAsync(values, props.params.match.id))  
-
+      setSubmiting(true) // set loader 
+      dispatch(updateArticleAsync(values, props.match.params.id))
     },
   })
 
@@ -61,38 +58,38 @@ const EditArticle = (props) => {
     formik.setFieldValue('content', state, true)
   }
 
-  const handleEditorBlur = (blur) => {
-//    setEditorBlur(true)
+  const handleEditorBlur = () => {
+    setEditorBlur(true)
   }
 
   useEffect(() => {
-    // if (notifications && notifications.success) {
-    //   // props.history.push(`/dashboard/articles`)
-    // }
-    // if (notifications && notifications.error) {
-   
-    // }
+    if (notifications && notifications.success) {
+      setSubmiting(false)   // EDIT set loader off after "sucess" notification 
+    }
     setSubmiting(false)
   }, [notifications, props.history])
 
+  // EDIT ↓
   useEffect(() => {
-      
-    dispatch(getArticleAsync(props.match.params.id))
+    dispatch(getAminArticleById(props.match.params.id))
 
-  }, [dispatch, props.match.params.id])
-
- // EDIT ARTICLE COMPONENT ↓
+  }, [dispatch, props.match.params])
 
   useEffect(() => {
     if (currentArticle && currentArticle.current) {
       setInitValue(currentArticle.current)
       setEditContentState(currentArticle.current.content)
-    } else {
-      console.log('NOTTTTTTTTTT')
     }
   }, [currentArticle])
-  
-  // EDIT ARTICLE COMPONENT ↑
+
+  useEffect(() => {
+
+    return () => {
+      dispatch(clearCurrentArticle())
+    }
+  }, [dispatch])
+
+  // EDIT  ↑
 
   return (
     <AdminLayout section="Edit article">

@@ -1,11 +1,11 @@
 import {
   ADD_ARTICLE,
   AUTH_USERS,
-  CLEAR_ARTICLE,
+  CLEAR_CURRENT_ARTICLE,
   CLEAR_NOTIFICATION,
   DELETE_ARTICLE,
   ERROR_GLOBAL,
-  GET_ARTICLE,
+  GET_CURRENT_ARTICLE,
   GET_ARTICLES,
   GET_PAGINATE_ARTICLES,
   SIGN_OUT_USER,
@@ -28,18 +28,18 @@ export const getArticles = (sort) => ({
   type: GET_ARTICLES,
   payload: sort
 })
-export const getArticle = (article) => ({
-  type: GET_ARTICLE,
+export const getCurrentArticle = (article) => ({
+  type: GET_CURRENT_ARTICLE,
   payload: article
 })
 export const deleteArticle = (docs) => ({
   type: DELETE_ARTICLE,
   payload: docs
 })
-export const clearArticle = () => {
+export const clearCurrentArticle = () => {
   return (dispatch) => {
     return dispatch({
-      type: CLEAR_ARTICLE
+      type: CLEAR_CURRENT_ARTICLE
     })
   }
 }

@@ -6,7 +6,8 @@ exports.grantAccess = function (action, resource) {
 
     try {
       const permission = roles.can(req.user.role)[action](resource);
-  
+      //const permission = roles.can('admin').readOwn('profile');
+
       if (!permission.granted) {
         return res.status(400).json({
           error: "You have no promission"

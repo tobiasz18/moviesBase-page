@@ -9,9 +9,9 @@ const { Article } = require('../../models/article_model');
 
 // add single article ------------------------ DONE
 // admin get, patch, delete single article --- DONE
-// get articles no auth-----------------------
-// fetch articles load more ------------------
-// featcj articles, with pagination ----------
+// get articles no auth-----------------------DONE
+// fetch articles load more ------------------DONE
+// featcj articles, with pagination ----------DONE
 
 router.route('/admin/add_articles')
   .post(checkLoggedIn, grantAccess('createAny', 'article'), async (req, res) => {

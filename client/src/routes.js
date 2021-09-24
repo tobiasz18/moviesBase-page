@@ -17,7 +17,7 @@ import Profile from "./components/dashboard/profile";
 import Articles from "./components/dashboard/articles";
 import authguard from "./hoc/authGuard";
 import Article from "./components/articles/article";
-import AddArticle from "./components/dashboard/articles/addArticle";
+import AddArticle from "./components/dashboard/articles/add";
 import EditArticle from "./components/dashboard/articles/edit";
 
 

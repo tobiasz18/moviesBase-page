@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, CLEAR_ARTICLE, DELETE_ARTICLE, GET_ARTICLE, GET_ARTICLES, GET_PAGINATE_ARTICLES, UPDATE_STATUS_ARTICLE } from "../types";
+import { ADD_ARTICLE, CLEAR_CURRENT_ARTICLE, DELETE_ARTICLE, GET_CURRENT_ARTICLE, GET_ARTICLES, GET_PAGINATE_ARTICLES, UPDATE_STATUS_ARTICLE } from "../types";
 
 export default function articleReducer(state = [], action) {
   switch (action.type) {
@@ -7,9 +7,9 @@ export default function articleReducer(state = [], action) {
     case ADD_ARTICLE:
       return { ...state, lastAdded: action.payload, success: true }
 
-    case GET_ARTICLE:
+    case GET_CURRENT_ARTICLE:
       return { ...state, current: action.payload }
-    case CLEAR_ARTICLE:
+    case CLEAR_CURRENT_ARTICLE:
       return { ...state, current: null }
       
     case GET_PAGINATE_ARTICLES:

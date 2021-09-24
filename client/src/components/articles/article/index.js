@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import { Typography, CardMedia } from '@material-ui/core';
 import { getArticleAsync } from '../../../store/actions/articles_actions';
 import { Loader } from '../../../utils/loader';
-import { clearArticle } from '../../../store/actions';
+import { clearCurrentArticle } from '../../../store/actions';
 import ScoreCard from '../../../utils/scoreCard';
 
 const Article = (props) => {
@@ -13,7 +13,7 @@ const Article = (props) => {
 
   useEffect(() => {
     dispatch(getArticleAsync(props.match.params.id))
-    return () => dispatch(clearArticle())
+    return () => dispatch(clearCurrentArticle())
   }, [dispatch, props.match.params.id])
 
   return (

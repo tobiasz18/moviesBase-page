@@ -21,32 +21,43 @@ export const getArticlesAsync = (sort) => {
 
     } catch (error) {
       dispatch(articles.errorGlobal('Ups something wrong with articles load'))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
-// Get single article by id
+// Get single article by id wihout auth
 export const getArticleAsync = (id) => {
-  console.log('somethink wrong', id)
   return async (dispatch) => {
     try {
       const response = await axios.get(`/api/articles/getById/${id}`)
-      console.log(response, 'resp')
-      dispatch(articles.getArticle(response.data[0]))
+
+      dispatch(articles.getCurrentArticle(response.data[0]))
     } catch (error) {
-      console.log('somethink wrong')
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
-
+// ADMIN REQUESTS  ↓ ↓ ↓
 export const addArticleAsync = (article) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(`/api/articles/admin/add_articles`, article, getAuthHeader())
+
       dispatch(articles.addArticle(response.data))
       dispatch(articles.successGlobal('New article have been added'))
     } catch (error) {
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
@@ -61,6 +72,10 @@ export const getPaginateArticlesAsync = (page = 1, limit = 8) => {
       dispatch(articles.getPaginateArticles(response.data))
     } catch (error) {
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
@@ -78,6 +93,10 @@ export const deleteArticleAsync = (_id) => {
 
     } catch (error) {
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
@@ -96,22 +115,44 @@ export const updateStatusArticleAsync = (status, _id) => {
       dispatch(articles.successGlobal('Status changed successfully'))
     } catch (error) {
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
+    }
+  }
+}
+
+export const getAminArticleById = (_id) => {
+  return async (dispatch) => {
+    try {
+      const article = await axios.get(`/api/articles/admin/articles/${_id}`, getAuthHeader())
+      dispatch(articles.getCurrentArticle(article.data))
+    } catch (error) {
+      dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
 
 export const updateArticleAsync = (values, _id) => {
-  console.log('article z update', values)
   return async (dispatch) => {
     try {
-      ///admin/articles/:id
-      // const article = await axios.patch(`/api/articles/admin/articles/${_id}`,values, getAuthHeader())
-      // console.log('mr article', article)
-      // dispatch(articles.getArticle(article))
+      const article = await axios.patch(`/api/articles/admin/articles/${_id}`, values, getAuthHeader())
 
+      dispatch(articles.getCurrentArticle(article.data))
+      dispatch(articles.successGlobal('Editing went smoothly! :)'))
     } catch (error) {
-      console.log('fail')
       dispatch(articles.errorGlobal(error.response.data.message))
+      console.log({
+        error: error.response.data.error,
+        message: error.response.data.message
+      })
     }
   }
 }
+
+// ADMIN REQUESTS  ↑ ↑ ↑
