@@ -27,7 +27,7 @@ import { clearCurrentArticle } from '../../../store/actions'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
-  const [isSubmiting, setSubmiting] = useState(false)
+  const [isSubmiting, setSubmiting] = useState(false) // set or remove Loadeer from 
   const notifications = useSelector((state) => state.notifications)
   const [initValue, setInitValue] = useState(initialValues)
   const actorsValue = useRef('')
@@ -77,8 +77,11 @@ const EditArticle = (props) => {
 
   useEffect(() => {
     if (currentArticle && currentArticle.current) {
+      setSubmiting(false)
       setInitValue(currentArticle.current)
       setEditContentState(currentArticle.current.content)
+    } else {
+      setSubmiting(true)
     }
   }, [currentArticle])
 
