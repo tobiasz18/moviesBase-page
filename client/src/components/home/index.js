@@ -47,7 +47,6 @@ const Home = () => {
         const skip = sort.skip + sort.limit
         dispatch(getArticlesAsync({ ...sort, skip: skip }))
         sortDispatch({ skip: skip })
-
       }}>
         Load more
       </button>

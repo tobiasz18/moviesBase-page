@@ -78,7 +78,6 @@ export const signOutUser = () => ({
 
 })
 
-
 //----- SITE -----//
 
 export const appLayout = (layout) => ({

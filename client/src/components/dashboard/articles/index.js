@@ -14,7 +14,6 @@ import {
 import { deleteArticleAsync, getPaginateArticlesAsync, updateStatusArticleAsync } from '../../../store/actions/articles_actions'
 import PaginateComponent from './paginate'
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     //padding: '2px 4px',

@@ -29,7 +29,6 @@ const Header = (props) => {
     }
   }, [notifications, dispatch])
 
-
   const signOutUser = () => {
     dispatch(signOut())
     props.history.push('/');
