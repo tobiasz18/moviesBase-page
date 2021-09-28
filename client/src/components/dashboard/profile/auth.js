@@ -1,7 +1,6 @@
 import * as React from 'react';
 // modal      🡫
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -9,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { TextField } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSelector } from 'react-redux'
+import EmailStepper from './stepper/email';
 
 const styleModal = {
   position: 'absolute',
@@ -35,22 +35,22 @@ const AuthProfile = () => {
           <Grid item>
             <TextField value={users.data.email} variant="standard" disabled />
           </Grid>
-          <Grid item>
-            <EditIcon fontSize="small" color="prime" disabled />
+          <Grid sx={{cursor: 'pointer'}} item>
+            <EditIcon fontSize="small" color="prime" disabled onClick={handleOpen} />
           </Grid>
         </Grid>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
             <TextField label="*********" variant="standard" disabled />
           </Grid>
-          <Grid item>
-            <EditIcon fontSize="small" color="prime" disabled />
+          <Grid sx={{cursor: 'pointer'}} item>
+            <EditIcon fontSize="small" color="prime" disabled onClick={handleOpen} />
           </Grid>
         </Grid>
       </Grid>
 
       <div>
-        <Button onClick={handleOpen}>Open modal</Button>
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -58,12 +58,12 @@ const AuthProfile = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={styleModal}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography variant="h6" component="h2" display="flex" justifyContent="center" mb={3}>
               Update your email
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <Box>
+              <EmailStepper />
+            </Box>
           </Box>
         </Modal>
       </div>
