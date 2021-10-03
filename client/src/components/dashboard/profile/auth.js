@@ -15,7 +15,7 @@ const styleModal = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -35,7 +35,7 @@ const AuthProfile = () => {
           <Grid item>
             <TextField value={users.data.email} variant="standard" disabled />
           </Grid>
-          <Grid sx={{cursor: 'pointer'}} item>
+          <Grid sx={{ cursor: 'pointer' }} item>
             <EditIcon fontSize="small" color="prime" disabled onClick={handleOpen} />
           </Grid>
         </Grid>
@@ -43,7 +43,7 @@ const AuthProfile = () => {
           <Grid item>
             <TextField label="*********" variant="standard" disabled />
           </Grid>
-          <Grid sx={{cursor: 'pointer'}} item>
+          <Grid sx={{ cursor: 'pointer' }} item>
             <EditIcon fontSize="small" color="prime" disabled onClick={handleOpen} />
           </Grid>
         </Grid>
@@ -62,7 +62,7 @@ const AuthProfile = () => {
               Update your email
             </Typography>
             <Box>
-              <EmailStepper />
+              <EmailStepper user={users} />
             </Box>
           </Box>
         </Modal>
