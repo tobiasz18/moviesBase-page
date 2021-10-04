@@ -1,17 +1,20 @@
 import * as React from 'react'
+import * as Yup from 'yup'
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { changeEmailUserAsync } from '../../../../store/actions/users_actions'
+
 const steps = ['Enter old email', 'Enter new email', 'Are you sure ?'];
 
 const EmailStepper = ({ user }) => {
   const [activeStep, setactiveStep] = React.useState(0)
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -32,7 +35,7 @@ const EmailStepper = ({ user }) => {
       ),
     }),
     onSubmit: (values) => {
-      console.log(values)
+      dispatch(changeEmailUserAsync(values))
     },
   });
 
@@ -70,10 +73,10 @@ const EmailStepper = ({ user }) => {
           </Step>
         ))}
       </Stepper>
-      <Box mt={4}>
+      <Box mt={4} >
         <form onSubmit={formik.handleSubmit}>
           {activeStep === 0 ?
-            <Box mb={2}>
+            <Box mb={2} >
               <TextField
                 fullWidth
                 name="email"
@@ -81,7 +84,9 @@ const EmailStepper = ({ user }) => {
                 {...formik.getFieldProps('email')}
                 {...errorHelper(formik, 'email')}
               />
-              {!formik.errors.email && formik.values.email ? btnNext(false) : btnNext(true)}
+              <Box pt={2} sx={{ display: 'flex', justifyContent: 'right' }} >
+                {!formik.errors.email && formik.values.email ? btnNext(false) : btnNext(true)}
+              </Box>
             </Box>
             : null}
           {activeStep === 1 ?
@@ -93,12 +98,14 @@ const EmailStepper = ({ user }) => {
                 {...formik.getFieldProps('newemail')}
                 {...errorHelper(formik, 'newemail')}
               />
-              {btnBack()}
-              {!formik.errors.newemail && formik.values.newemail ? btnNext(false) : btnNext(true)}
+              <Box pt={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                {btnBack()}
+                {!formik.errors.newemail && formik.values.newemail ? btnNext(false) : btnNext(true)}
+              </Box>
             </Box>
             : null}
           {activeStep === 2 ?
-            <Box mb={2}>
+            <Box pt={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               {btnBack()}
               <Button color="primary" variant="contained" type="submit">
                 Submit

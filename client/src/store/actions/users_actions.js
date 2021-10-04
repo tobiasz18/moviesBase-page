@@ -39,7 +39,7 @@ export const signInUser = (values) => {
 export const isAuthUser = () => {
   return async (dispatch) => {
     try {
-      if(!getTokenCookie()) {
+      if (!getTokenCookie()) {
         throw new Error()
       }
       const user = await axios.get(`/api/users/isauth`, getAuthHeader())
@@ -57,5 +57,19 @@ export const signOut = () => {
   }
 }
 
+export const changeEmailUserAsync = ({ email, newemail }) => {
+  return async (dispatch) => {
+    try {
+      await axios.patch(`/api/users/update_email`, {
+        email: email,
+        newEmail: newemail
+      }, getAuthHeader())
+      dispatch(users.changeEmailUser(newemail))
+      dispatch(users.successGlobal(`Good job! email has been changed.`))
 
+    } catch (error) {
+      dispatch(users.errorGlobal(error.response.data.message))
+    }
+  }
+}
 

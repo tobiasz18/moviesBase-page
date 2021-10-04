@@ -11,7 +11,8 @@ import {
   SIGN_OUT_USER,
   SITE_LAYOUT,
   SUCCESS_GLOBAL,
-  UPDATE_STATUS_ARTICLE
+  UPDATE_STATUS_ARTICLE,
+  CHANGE_EMAIL_USER
 } from "../types";
 
 //----- ARTICLES -----//
@@ -75,8 +76,12 @@ export const authUser = (user) => ({
 })
 export const signOutUser = () => ({
   type: SIGN_OUT_USER,
-
 })
+export const changeEmailUser = (data) => ({
+  type: CHANGE_EMAIL_USER,
+  payload: data
+})
+
 
 //----- SITE -----//
 
