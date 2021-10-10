@@ -1,4 +1,4 @@
-import { AUTH_USERS, CHANGE_EMAIL_USER, SIGN_OUT_USER } from "../types";
+import { AUTH_USERS, CHANGE_EMAIL_USER, SIGN_OUT_USER, UPDATE_PROFILE } from "../types";
 
 let DEFAULT_USER_STATE = {
   data: {
@@ -29,6 +29,10 @@ function usersReducer(state = DEFAULT_USER_STATE, action) {
     case CHANGE_EMAIL_USER:
       return {
         ...state, data: { ...state.data, email: action.payload }
+      }
+    case UPDATE_PROFILE:
+      return {
+        ...state, data: { ...action.payload }
       }
     default:
       return state

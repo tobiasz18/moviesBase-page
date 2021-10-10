@@ -7,6 +7,8 @@ import {
   Divider,
   Button
 } from '@mui/material'
+import { Box } from '@mui/system'
+import { updateProfileDataAsync } from '../../../store/actions/users_actions'
 
 const UserProfile = () => {
   const {
@@ -23,12 +25,58 @@ const UserProfile = () => {
     enableReinitialize: true,
     onSubmit: (values) => {
       console.log(values)
+      dispatch(updateProfileDataAsync(values))
     }
   })
 
+  const errorHelper = (formik, values) => ({
+    error: formik.errors[values] && formik.touched[values] ? true : false,
+    helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values] : null
+  })
+
+
   return (
     <>
-      user Profile
+      <Box mt={4}>
+
+        <form onSubmit={formik.handleSubmit}>
+          <Box mb={2}>
+            <TextField
+              name="firstName"
+              label="firstName"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              {...formik.getFieldProps('firstName')}
+              {...errorHelper(formik, 'firstName')}
+            />
+          </Box>
+
+          <Box mb={2}>
+            <TextField
+              name="lastName"
+              label="lastName"        
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              {...formik.getFieldProps('lastName')}
+              {...errorHelper(formik,'lastName')}
+            />
+          </Box>
+
+          <Box mb={2}>
+            <TextField
+              name="age"
+              label="age"
+              {...formik.getFieldProps('age')}
+              {...errorHelper(formik, 'age')}
+            />
+          </Box>
+
+          <Button color="primary" variant="contained"  type="submit">
+            Submit
+          </Button>
+        </form>
+        
+      </Box>
     </>
   )
 }

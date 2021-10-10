@@ -19,6 +19,7 @@ export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION'
 export const AUTH_USERS = 'AUTH_USERS'
 export const SIGN_OUT_USER = 'SIGN_OUT_USER'
 export const CHANGE_EMAIL_USER = 'CHANGE_EMAIL_USER'
+export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
 //----- SITE ----- //
 
