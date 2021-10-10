@@ -78,7 +78,6 @@ export const updateProfileDataAsync = (data) => {
   return async (dispatch, getState) => {
     try {
       const profile = await axios.patch(`/api/users/profile`, data, getAuthHeader())
-      console.log(getState())
       const newData = {
         ...getState().users.data,
         ...profile.data

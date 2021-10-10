@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
   TextField,
-  Divider,
   Button
 } from '@mui/material'
 import { Box } from '@mui/system'
@@ -24,7 +23,6 @@ const UserProfile = () => {
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(values)
       dispatch(updateProfileDataAsync(values))
     }
   })
@@ -38,7 +36,6 @@ const UserProfile = () => {
   return (
     <>
       <Box mt={4}>
-
         <form onSubmit={formik.handleSubmit}>
           <Box mb={2}>
             <TextField
@@ -50,7 +47,6 @@ const UserProfile = () => {
               {...errorHelper(formik, 'firstName')}
             />
           </Box>
-
           <Box mb={2}>
             <TextField
               name="lastName"
@@ -61,7 +57,6 @@ const UserProfile = () => {
               {...errorHelper(formik,'lastName')}
             />
           </Box>
-
           <Box mb={2}>
             <TextField
               name="age"
@@ -70,12 +65,10 @@ const UserProfile = () => {
               {...errorHelper(formik, 'age')}
             />
           </Box>
-
           <Button color="primary" variant="contained"  type="submit">
             Submit
           </Button>
-        </form>
-        
+        </form>   
       </Box>
     </>
   )
