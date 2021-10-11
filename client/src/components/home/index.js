@@ -8,7 +8,7 @@ import { getArticlesAsync } from '../../store/actions/articles_actions'
 const initialSort = {
   sortBy: "_id",
   order: "desc",
-  limit: 5,
+  limit: 8,
   skip: 0
 }
 
