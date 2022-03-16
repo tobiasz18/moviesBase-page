@@ -19,7 +19,7 @@ import authguard from "./hoc/authGuard";
 import Article from "./components/articles/article";
 import AddArticle from "./components/dashboard/articles/add";
 import EditArticle from "./components/dashboard/articles/edit";
-
+import Contact from './components/contact'
 
 const Routes = () => {
   const [loading, setLoading] = useState(true)
@@ -47,6 +47,7 @@ const Routes = () => {
             <Route path="/dashboard/articles" component={authguard(Articles, true)} />
             <Route path="/dashboard/profile" component={authguard(Profile)} />
             <Route path="/dashboard" component={authguard(Dashboard)} />
+            <Route path="/contact" component={Contact} />
             <Route path="/article/:id" component={Article} />
             <Route path="/auth" component={Auth} />
             <Route path="/" component={Home} />
