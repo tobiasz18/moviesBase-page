@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter,
-  Switch,
-  Route
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GoogleFontLoader from 'react-google-font-loader';
 import Home from "./components/home";
 import Header from "./components/navigation/header";
