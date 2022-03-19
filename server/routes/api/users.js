@@ -1,4 +1,5 @@
 const express = require('express');
+const { contactMail } = require('../../config/email');
 const { checkLoggedIn } = require('../../middleware/auth');
 const { grantAccess } = require('../../middleware/roles');
 const router = express.Router();
@@ -121,6 +122,18 @@ router.route('/update_email')
       return res.status(400).json({ message: 'Problem updating', error: error });
     }
   });
+
+  router.route('/contact')
+  .post(async(req, res) => {
+    try {
+      await contactMail(req.body)
+      /// send email to dev
+      res.status(200).send('ok')
+    } catch (error) {
+      return res.status(400).json({ message: 'Sorry try again later', error: error });
+    }
+  })
+
 
 const getUserProps = (user) => {
   return {

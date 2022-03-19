@@ -93,3 +93,17 @@ export const updateProfileDataAsync = (data) => {
 }
 
 
+/**------ contact -----**/
+
+export const contactUs = (data) => {
+  return async (dispatch) => {
+    try {
+      await axios.post(`/api/users/contact`, data);
+      dispatch(users.successGlobal('We will contact you back'))
+    } catch (error) {
+      console.log(error.response.message)
+      dispatch(users.errorGlobal(error.response.data.mesage))
+    }
+  }
+}
+

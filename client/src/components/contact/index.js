@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
+import { contactUs } from '../../store/actions/users_actions'
 
 import { TextField, Button, FormGroup } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
@@ -27,10 +28,10 @@ const Contact = () => {
         .required('Sorry you need write something')
         .max(500, 'sorry this message is too long')
     }),
-    onSubmit: (values, { resetForm }) => {
-      
-     
+    onSubmit: (values) => {
       setLoading(true)
+      dispatch(contactUs(values))
+
     }
   })
 
@@ -38,6 +39,13 @@ const Contact = () => {
     error: formik.errors[name] && formik.touched[name] ? true : false,
     helperText: formik.errors[name] && formik.touched[name] ? formik.errors[name] : null
   })
+
+  useEffect(() => {
+    if (notifications && notifications.success) {
+      formik.resetForm()
+      setLoading(false)
+    }
+  }, [notifications])
 
 
   return (
@@ -47,7 +55,7 @@ const Contact = () => {
         <Container maxWidth="md">
           <h1>Contact me</h1>
           <form onSubmit={formik.handleSubmit}>
-          <FormGroup
+            <FormGroup
               style={{ marginBottom: '1rem' }}
             >
               <TextField
