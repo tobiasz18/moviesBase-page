@@ -1,5 +1,5 @@
 const express = require('express');
-const { contactMail } = require('../../config/email');
+const { contactMail, verifyMail } = require('../../config/email');
 const { checkLoggedIn } = require('../../middleware/auth');
 const { grantAccess } = require('../../middleware/roles');
 const router = express.Router();
@@ -24,6 +24,8 @@ router.route('/register')
       const doc = await user.save();
 
       /*----------send email----------*/
+      const generateEmailToken = user.generateEmailToken()
+      await verifyMail(doc.email, generateEmailToken)
 
       res.cookie('x-access-token', generateToken)
         .status(200)

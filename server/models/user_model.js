@@ -43,6 +43,10 @@ const userSchema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  verified: {
+    type: Boolean,
+    default: false
   }
 }, {
   // timestamps: true, collection: "user"
@@ -57,6 +61,13 @@ userSchema.pre('save', async function (next) {
   }
   next();
 });
+
+userSchema.methods.generateEmailToken = function () {
+  // this === user
+  const userObj = { _id: this._id.toHexString() };
+  const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d' });
+  return token;
+}
 
 userSchema.methods.generateToken = function () {
   // this === user
