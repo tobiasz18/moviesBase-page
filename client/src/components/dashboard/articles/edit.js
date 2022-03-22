@@ -31,8 +31,9 @@ const EditArticle = (props) => {
   const notifications = useSelector((state) => state.notifications)
   const [initValue, setInitValue] = useState(initialValues)
   const actorsValue = useRef('')
-  const dispatch = useDispatch()
   const classes = useStyles()
+
+  const dispatch = useDispatch()
 
   // EDIT ARTICLE COMPONENT ↓
   const currentArticle = useSelector((state) => state.articles)
@@ -86,7 +87,6 @@ const EditArticle = (props) => {
   }, [currentArticle])
 
   useEffect(() => {
-
     return () => {
       dispatch(clearCurrentArticle())
     }

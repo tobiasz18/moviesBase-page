@@ -21,6 +21,10 @@ export const SIGN_OUT_USER = 'SIGN_OUT_USER'
 export const CHANGE_EMAIL_USER = 'CHANGE_EMAIL_USER'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
+
+export const ACCOUNT_VERIFY = 'ACCOUNT_VERIFY'
+
 //----- SITE ----- //
 
 export const SITE_LAYOUT = 'SITE_LAYOUT'
+

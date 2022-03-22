@@ -118,21 +118,38 @@ router.route('/update_email')
 
       const token = user.generateToken();
       res.cookie('x-access-token', token)
-      .status(200).send({email: user.email});
+        .status(200).send({ email: user.email });
 
     } catch (error) {
       return res.status(400).json({ message: 'Problem updating', error: error });
     }
   });
 
-  router.route('/contact')
-  .post(async(req, res) => {
+router.route('/contact')
+  .post(async (req, res) => {
     try {
       await contactMail(req.body)
       /// send email to dev
       res.status(200).send('ok')
     } catch (error) {
       return res.status(400).json({ message: 'Sorry try again later', error: error });
+    }
+  })
+
+router.route('/verify')
+  .get(async (req, res) => {
+    try {
+      const token = User.validateToken(req.query.validation)
+      const user = await User.findById(token._id)
+      if (!user) return res.status(400).json({ message: 'User not found.' })
+      if (user.verified) return res.status(200).json({ message: 'Already verified!' })
+
+      user.verified = true;
+      await user.save();
+
+      res.status(200).send(getUserProps(user))
+    } catch (error) {
+      return res.status(400).json(error)
     }
   })
 
@@ -144,7 +161,8 @@ const getUserProps = (user) => {
     firstName: user.firstName,
     lastName: user.lastName,
     age: user.age,
-    role: user.role
+    role: user.role,
+    verified: user.verified
   }
 }
 

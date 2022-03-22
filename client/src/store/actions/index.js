@@ -13,7 +13,8 @@ import {
   SUCCESS_GLOBAL,
   UPDATE_STATUS_ARTICLE,
   CHANGE_EMAIL_USER,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  ACCOUNT_VERIFY
 } from "../types";
 
 //----- ARTICLES -----//
@@ -87,6 +88,9 @@ export const updateProfile = (data) => ({
   payload: data
 })
 
+export const accountVerify = () => ({
+  type: ACCOUNT_VERIFY
+})
 
 //----- SITE -----//
 

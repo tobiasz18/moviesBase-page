@@ -82,6 +82,12 @@ userSchema.statics.emailTaken = async function (email) {
   return !!user;
 }
 
+userSchema.statics.validateToken = function (token) {
+  //decode token
+  const verify = jwt.verify(token, process.env.DB_SECRET);
+  return verify;
+}
+
 userSchema.methods.comparePassword = async function (myPlaintextPassword) {
   // this === user
   const result = bcrypt.compare(myPlaintextPassword, this.password);
