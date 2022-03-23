@@ -50,7 +50,7 @@ const Articles = (props) => {
   const deleteAdminArticle = (_id) => {
     dispatch(deleteArticleAsync(_id))
   }
-
+ 
   const handleStatusChange = (status, _id) => {
     const newStatus = status === 'public' ? 'draft' : 'public'
     dispatch(updateStatusArticleAsync(newStatus, _id))

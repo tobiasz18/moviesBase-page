@@ -46,8 +46,10 @@ const Auth = (props) => {
   })
 
   useEffect(() => {
-    if (notifications && notifications.success)
+    if (notifications && notifications.success) {
       props.history.push('/dashboard')
+    }
+
   }, [notifications, props.history])
 
   return (

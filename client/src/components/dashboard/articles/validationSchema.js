@@ -31,6 +31,7 @@ export const validationSchema = yup.object({
     .required('Must have actors'),
   score: yup
     .number()
+    .max(100)
     .required('Title is required'),
   status: yup
     .string()

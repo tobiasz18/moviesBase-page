@@ -25,5 +25,6 @@ exports.checkLoggedIn = (req, res, next) => {
   const user = res.locals.userData;
   if (!user) return res.status(401).json({ error: "No user. Please log in" });
   req.user = user;
+
   next();
 }
