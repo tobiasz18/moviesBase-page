@@ -6,6 +6,7 @@ const router = express.Router();
 
 // model
 const { Article } = require('../../models/article_model');
+const { Category } = require("../../models/category_model");
 
 // add single article ------------------------ DONE
 // admin get, patch, delete single article --- DONE
@@ -132,5 +133,32 @@ router.route("/admin/paginate")
       res.status(400).json({ message: 'Error paginate', error });
     }
   });
+
+
+/* Articles Categoies */
+
+router.route('/categories')
+  .post(checkLoggedIn, grantAccess('createAny', 'categories'), async (req, res) => {
+    try {
+      const category = new Category(req.body)
+      const result = await category.save()
+
+      res.status(200).json(result)
+    } catch (error) {
+      res.status(400).json({ message: 'Error getting categoeis', error: error });
+    }
+  })
+  .get(async (req, res) => {
+    try {
+      const categories = await Category.find()
+
+      res.status(200).json(categories)
+    } catch (error) {
+      res.status(400).json({ message: 'Error categoies not found', error: error });
+    }
+  })
+
+
+
 
 module.exports = router;
