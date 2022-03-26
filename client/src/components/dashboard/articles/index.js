@@ -30,6 +30,18 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(0),
+  },
+  tools: {
+    [theme.breakpoints.down("sm")]: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  }, 
+  searchTool: {
+    [theme.breakpoints.down("sm")]: {
+      margin: 0,
+      paddingTop: theme.spacing(2) 
+    }
   }
 }));
 
@@ -62,7 +74,7 @@ const Articles = (props) => {
 
   return (
     <LayoutDashboard section="Articles">
-      <Box display="flex" pb={4}>
+      <Box display="flex" pb={4} className={classes.tools}>
         <Box>
           <Button
             variant="outlined"
@@ -75,8 +87,8 @@ const Articles = (props) => {
             Add article
           </Button>
         </Box>
-        <Box ml={1} flexDirection="row" >
-          <Paper component="form" className={classes.root} onSubmit={() => alert('search')}>
+        <Box ml={1} flexDirection="row"  className={classes.searchTool} >
+          <Paper  component="form" className={classes.root} onSubmit={() => alert('search')}>
             <IconButton className={classes.iconButton} aria-label="menu">
               @
             </IconButton>
