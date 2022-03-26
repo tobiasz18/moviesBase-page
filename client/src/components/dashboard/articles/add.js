@@ -21,9 +21,9 @@ import {
 
 import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
-import AdminLayout from '../../../hoc/adminLayout'
 import Wysiwyg from '../../../utils/form/wysiwyg'
 import { addArticleAsync } from '../../../store/actions/articles_actions'
+import LayoutDashboard from '../../../hoc/LayoutDashboard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ const AddArticle = (props) => {
   }, [notifications, props.history])
 
   return (
-    <AdminLayout section="Add article">
+    <LayoutDashboard section="Add article">
       {
         isSubmiting ?
           <Loader /> :
@@ -254,7 +254,7 @@ const AddArticle = (props) => {
             </Box>
           </form>
       }
-    </AdminLayout>
+    </LayoutDashboard>
   )
 }
 

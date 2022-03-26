@@ -20,10 +20,10 @@ import {
 } from '@material-ui/core';
 import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
-import AdminLayout from '../../../hoc/adminLayout'
 import Wysiwyg from '../../../utils/form/wysiwyg'
 import { getAminArticleById, updateArticleAsync } from '../../../store/actions/articles_actions'
 import { clearCurrentArticle } from '../../../store/actions'
+import LayoutDashboard from '../../../hoc/LayoutDashboard'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
@@ -95,7 +95,7 @@ const EditArticle = (props) => {
   // EDIT  ↑
 
   return (
-    <AdminLayout section="Edit article">
+    <LayoutDashboard section="Edit article">
       {
         isSubmiting ?
           <Loader /> :
@@ -262,7 +262,7 @@ const EditArticle = (props) => {
             </Box>
           </form>
       }
-    </AdminLayout>
+    </LayoutDashboard>
   )
 }
 

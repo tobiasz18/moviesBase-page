@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import AdminLayout from '../../../hoc/adminLayout'
 import { Link } from 'react-router-dom'
 import { Box, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,13 +12,14 @@ import {
 } from '@material-ui/core';
 import { deleteArticleAsync, getPaginateArticlesAsync, updateStatusArticleAsync } from '../../../store/actions/articles_actions'
 import PaginateComponent from './paginate'
+import LayoutDashboard from '../../../hoc/LayoutDashboard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     //padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    maxWidth: 400,
+    width: '100%'
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -61,7 +61,7 @@ const Articles = (props) => {
   }, [dispatch])
 
   return (
-    <AdminLayout section="Articles">
+    <LayoutDashboard section="Articles">
       <Box display="flex" pb={4}>
         <Box>
           <Button
@@ -97,7 +97,7 @@ const Articles = (props) => {
         updateStatus={(status, _id) => handleStatusChange(status, _id)}
         editArticle={(_id) => handleEditArticle(_id)}
       />
-    </AdminLayout>
+    </LayoutDashboard>
   )
 }
 

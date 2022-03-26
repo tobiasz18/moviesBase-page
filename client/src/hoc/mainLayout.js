@@ -10,7 +10,7 @@ const MainLayout = (props) => {
 
   return (
     <Container className={`${site.layout}`} >
-      <Box marginTop={10} >
+      <Box marginTop={7} >
         {props.children}
         <ToastContainer />
       </Box>

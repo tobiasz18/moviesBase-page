@@ -17,6 +17,7 @@ import AddArticle from "./components/dashboard/articles/add";
 import EditArticle from "./components/dashboard/articles/edit";
 import Contact from './components/contact'
 import EmailVerification from "./components/auth/emailVerification";
+import Categories from "./components/dashboard/categories";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true)
@@ -43,6 +44,7 @@ const Routes = () => {
             <Route path="/dashboard/articles/add" component={authguard(AddArticle, true)} />
             <Route path="/dashboard/articles" component={authguard(Articles, true)} />
             <Route path="/dashboard/profile" component={authguard(Profile)} />
+            <Route path="/dashboard/categories" component={authguard(Categories)} />
             <Route path="/dashboard" component={authguard(Dashboard)} />
             <Route path="/article/:id" component={Article} />
             <Route path="/verification" component={EmailVerification} />
