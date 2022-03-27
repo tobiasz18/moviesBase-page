@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -9,15 +9,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
-// import Typography from "@material-ui/core/Typography";
-// import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
-
 
 // icons
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -27,11 +22,6 @@ import { Typography } from '@material-ui/core';
 import { Divider, Box } from '@material-ui/core';
 import CategoryIcon from '@material-ui/icons/Category';
 
-//background photo
-import bgImage from "../assets/img/sidebar-2.jpg"
-import { useEffect } from "react";
-import { useMemo } from "react";
-import { useCallback } from "react";
 
 const drawerWidth = 200;
 
@@ -108,13 +98,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LayoutDashboard = (props) => {
+  const [showdrawer, setShowDrawer] = useState(true)
+  const [open, setOpen] = useState(false)
 
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()
+  const theme = useTheme()
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"))
 
-  const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    setShowDrawer(isMdUp)
+  }, [isMdUp])
 
   const toggleDrawer = (event) => {
     if (
@@ -124,8 +118,8 @@ const LayoutDashboard = (props) => {
       return;
     }
 
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   return (
     <div className={classes.root}>
@@ -149,7 +143,7 @@ const LayoutDashboard = (props) => {
 
       <Drawer
         className={classes.drawer}
-        variant={isMdUp ? "permanent" : "temporary"}
+        variant={showdrawer ? "permanent" : "temporary"}
         classes={{
           paper: classes.drawerPaper
         }}
@@ -185,7 +179,6 @@ const LayoutDashboard = (props) => {
     </div >
   );
 }
-
 
 
 const listRoutes = [
