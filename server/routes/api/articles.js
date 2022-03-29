@@ -84,7 +84,7 @@ router.route('/getById/:id')
   .get(async (req, res) => {
     try {
       const _id = req.params.id;
-      const article = await Article.find({ _id: _id, status: 'public' });
+      const article = await Article.find({ _id: _id, status: 'public' }).populate('category');
       if (!article || article.length === 0) {
         return res.status(400).json({ message: "Article not found" });
       }
@@ -101,6 +101,7 @@ router.route('/loadmore')
 
       const articles = await Article
         .find({ status: 'public' })
+        .populate('category')
         .sort([[sortArgs.sortBy, sortArgs.order]])
         .skip(sortArgs.skip)
         .limit(sortArgs.limit)

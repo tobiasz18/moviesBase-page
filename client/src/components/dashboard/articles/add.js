@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik, FieldArray, FormikProvider } from 'formik'
 import { initialValues, validationSchema } from './validationSchema'
+import Wysiwyg from '../../../utils/form/wysiwyg' 
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -21,9 +22,11 @@ import {
 
 import { Loader } from '../../../utils/loader'
 import AddIcon from '@material-ui/icons/Add'
-import Wysiwyg from '../../../utils/form/wysiwyg'
+
 import { addArticleAsync } from '../../../store/actions/articles_actions'
 import LayoutDashboard from '../../../hoc/LayoutDashboard'
+
+import { getCategoriesAsync } from '../../../store/actions/categories_actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +49,20 @@ const useStyles = makeStyles((theme) => ({
     border: ' 1px solid rgb(196 196 196)',
     borderRadius: '4px',
     padding: '5px',
+  },
+  containerForm: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  formControl: {
+    display: 'block',
+    maxWidth: '300px'
+  },
+  selectEmpty: {
+    width: '100%'
+  },
+  score: {
+    maxWidth: '300px'
   }
 }))
 
@@ -56,14 +73,17 @@ const AddArticle = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const notifications = useSelector((state) => state.notifications)
+  const categories = useSelector((state) => state.categories.categories)
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log(values)
       setSubmiting(true)
       dispatch(addArticleAsync(values))
+
     },
   })
 
@@ -89,170 +109,205 @@ const AddArticle = (props) => {
     }
   }, [notifications, props.history])
 
+  useEffect(() => {
+    dispatch(getCategoriesAsync())
+  }, [dispatch])
+
   return (
     <LayoutDashboard section="Add article">
       {
         isSubmiting ?
           <Loader /> :
-          <form className={classes.root} onSubmit={formik.handleSubmit}>
-            {/*----------       Title     ----------*/}
-            <TextField
-              fullWidth
-              variant="outlined"
-              name="title"
-              label="title"
-              {...formik.getFieldProps('title')}
-              {...errorHelper(formik, 'title')}
-            />
-            {/*----------       excerpt     ----------*/}
-            <TextField
-              fullWidth
-              variant="outlined"
-              name="excerpt"
-              label="excerpt"
-              type="excerpt"
-              multiline={true}
-              minRows="4"
-              {...formik.getFieldProps('excerpt')}
-              {...errorHelper(formik, 'excerpt')}
-            />
-            {/*----------       content     ----------*/}
-            <div>
-              <Typography gutterBottom={true} variant="subtitle2" component="h5">
-                Content:
-              </Typography>
-              <div className={classes.wysiwyg}>
-                <Wysiwyg
-                  handleEditorState={(state) => handleEditorState(state)}
-                  handleEditorBlur={(blur) => handleEditorBlur(blur)}
+          <div className={classes.containerForm}>
+            <form className={classes.root} onSubmit={formik.handleSubmit}>
+              {/*----------       Title     ----------*/}
+              <TextField
+                fullWidth
+                variant="outlined"
+                name="title"
+                label="title"
+                {...formik.getFieldProps('title')}
+                {...errorHelper(formik, 'title')}
+              />
+              {/*----------       excerpt     ----------*/}
+              <TextField
+                fullWidth
+                variant="outlined"
+                name="excerpt"
+                label="excerpt"
+                type="excerpt"
+                multiline={true}
+                minRows="4"
+                {...formik.getFieldProps('excerpt')}
+                {...errorHelper(formik, 'excerpt')}
+              />
+              {/*----------       content     ----------*/}
+              <div>
+                <Typography gutterBottom={true} variant="subtitle2" component="h5">
+                  Content:
+                </Typography>
+                <div className={classes.wysiwyg}>
+                  <Wysiwyg
+                    handleEditorState={(state) => handleEditorState(state)}
+                    handleEditorBlur={(blur) => handleEditorBlur(blur)}
+                  />
+                </div>
+                {formik.errors.content && editorBlur ?
+                  <FormHelperText error={true}>
+                    {formik.errors.content}
+                  </FormHelperText>
+                  : null}
+                <TextField
+                  type="hidden"
+                  name="content"
+                  {...formik.getFieldProps('content')}
                 />
               </div>
-              {formik.errors.content && editorBlur ?
-                <FormHelperText error={true}>
-                  {formik.errors.content}
-                </FormHelperText>
-                : null}
-              <TextField
-                type="hidden"
-                name="content"
-                {...formik.getFieldProps('content')}
-              />
-            </div>
-            <Typography variant="subtitle2" component="h4">
-              Movie data and score
-            </Typography>
-            {/*----------       director     ----------*/}
-            <TextField
-              fullWidth
-              variant="outlined"
-              name="director"
-              label="director"
-              type="director"
-              {...formik.getFieldProps('director')}
-              {...errorHelper(formik, 'director')}
-            />
-            {/*----------       Add the actors by FieldArray  ----------*/}
-            <FormikProvider value={formik}>
+              {/*----------       director     ----------*/}
               <Typography variant="subtitle2" component="h4">
-                Add the actors:
+                Movie director
               </Typography>
-              <FieldArray
-                name="actors"
-                render={arrayHelpers => (
-                  <>
-                    <Paper component="form" className={classes.rootPaper} elevation={0} >
-                      <InputBase
-                        className={classes.input}
-                        inputRef={actorsValue}
-                        placeholder="Add actor name here"
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
-                            e.preventDefault()
-                            if (e.target.value !== '') {
-                              arrayHelpers.push(e.target.value)
-                              e.target.value = ''
-                            }
-                          }
-                        }}
-                        fullWidth
-                      />
-                      <IconButton
-                        className={classes.iconButton}
-                        onClick={() => {
-                          if (actorsValue.current.value !== '') {
-                            arrayHelpers.push(actorsValue.current.value)
-                            actorsValue.current.value = ''
-                          }
-                        }}
-                      >
-                        <AddIcon />
-                      </IconButton>
-                    </Paper>
-                    {formik.errors.actors && formik.touched.actors ?
-                      <FormHelperText error={true}>
-                        {formik.errors.actors}
-                      </FormHelperText>
-                      : null}
-                    <Box display="flex">
-                      {formik.values.actors.map((actor, index) => {
-                        return (
-                          <Box key={actor} mt={2} mr={1}>
-                            <Chip
-                              label={`${actor}`}
-                              color="primary"
-                              onDelete={() => arrayHelpers.remove(index)}
-                            />
-                          </Box>
-                        )
-                      })}
-                    </Box>
-                  </>
-                )}
+              <TextField
+                fullWidth
+                variant="outlined"
+                name="director"
+                label="director"
+                type="director"
+                {...formik.getFieldProps('director')}
+                {...errorHelper(formik, 'director')}
               />
-            </FormikProvider>
-            {/*----------     score     ----------*/}
-            <TextField
-              fullWidth
-              name="score"
-              label="score"
-              type="number"
-              variant="outlined"
-              {...formik.getFieldProps('score')}
-              {...errorHelper(formik, 'score')}
-            />
-            {/*----------     Select a status     ----------*/}
-            <FormControl variant="outlined" className={classes.formControl}>
-              <Typography gutterBottom={true} variant="subtitle2" component="h4">
-                Status:
+              {/*----------       Add the actors by FieldArray  ----------*/}
+              <FormikProvider value={formik}>
+                <Typography variant="subtitle2" component="h4">
+                  Add the actors:
+                </Typography>
+                <FieldArray
+                  name="actors"
+                  render={arrayHelpers => (
+                    <>
+                      <Paper component="form" className={classes.rootPaper} elevation={0} >
+                        <InputBase
+                          className={classes.input}
+                          inputRef={actorsValue}
+                          placeholder="Add actor name here"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              if (e.target.value !== '') {
+                                arrayHelpers.push(e.target.value)
+                                e.target.value = ''
+                              }
+                            }
+                          }}
+                          fullWidth
+                        />
+                        <IconButton
+                          className={classes.iconButton}
+                          onClick={() => {
+                            if (actorsValue.current.value !== '') {
+                              arrayHelpers.push(actorsValue.current.value)
+                              actorsValue.current.value = ''
+                            }
+                          }}
+                        >
+                          <AddIcon />
+                        </IconButton>
+                      </Paper>
+                      {formik.errors.actors && formik.touched.actors ?
+                        <FormHelperText error={true}>
+                          {formik.errors.actors}
+                        </FormHelperText>
+                        : null}
+                      <Box display="flex">
+                        {formik.values.actors.map((actor, index) => {
+                          return (
+                            <Box key={actor} mt={2} mr={1}>
+                              <Chip
+                                label={`${actor}`}
+                                color="primary"
+                                onDelete={() => arrayHelpers.remove(index)}
+                              />
+                            </Box>
+                          )
+                        })}
+                      </Box>
+                    </>
+                  )}
+                />
+              </FormikProvider>
+
+              {/*----------     Select a status     ----------*/}
+              <FormControl variant="outlined" className={classes.formControl}>
+                <Typography gutterBottom={true} variant="subtitle2" component="h4">
+                  Status:
+                </Typography>
+                <Select
+                  name="status"
+                  className={classes.selectEmpty}
+                  {...formik.getFieldProps('status')}
+                  error={formik.errors.status && formik.touched.status ? true : false}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'draft'}>Draft</MenuItem>
+                  <MenuItem value={'public'}>Public</MenuItem>
+                </Select>
+                {formik.errors.status && formik.touched.status ?
+                  <FormHelperText error={true}>
+                    {formik.errors.status}
+                  </FormHelperText>
+                  : null}
+              </FormControl>
+              {/*----------     Select Category   ----------*/}
+              <FormControl variant="outlined" className={classes.formControl}>
+                <Typography gutterBottom={true} variant="subtitle2" component="h4">
+                  Category:
+                </Typography>
+                <Select
+                  name="category"
+                  className={classes.selectEmpty}
+                  {...formik.getFieldProps('category')}
+                  error={formik.errors.category && formik.touched.category ? true : false}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {categories && categories.map((item, key) => (
+                    <MenuItem key={`${key + item}`} value={item._id}>{item.name}</MenuItem>
+                  ))}
+
+                </Select>
+                {formik.errors.category && formik.touched.category ?
+                  <FormHelperText error={true}>
+                    {formik.errors.category}
+                  </FormHelperText>
+                  : null}
+              </FormControl>
+              {/*----------     score     ----------*/}
+              <Typography variant="subtitle2" component="h4">
+                Score:
               </Typography>
-              <Select
-                name="status"
-                className={classes.selectEmpty}
-                {...formik.getFieldProps('status')}
-                error={formik.errors.status && formik.touched.status ? true : false}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={'draft'}>Draft</MenuItem>
-                <MenuItem value={'public'}>Public</MenuItem>
-              </Select>
-              {formik.errors.status && formik.touched.status ?
-                <FormHelperText error={true}>
-                  {formik.errors.status}
-                </FormHelperText>
-                : null}
-            </FormControl>
-            {/*----------     Divider and Submit Button   ----------*/}
-            <Box mt={1}>
-              <Box mb={2}>
-                <Divider />
+              <TextField
+                className={classes.score}
+                name="score"
+                label="score"
+                type="number"
+                variant="outlined"
+                {...formik.getFieldProps('score')}
+                {...errorHelper(formik, 'score')}
+              />
+              {/*----------     Divider and Submit Button   ----------*/}
+              <Box mt={1}>
+                <Box mb={2}>
+                  <Divider />
+                </Box>
+                <Button color="primary" variant="contained" type="submit">
+                  Add article
+                </Button>
               </Box>
-              <Button color="primary" variant="contained" type="submit">
-                Add article
-              </Button>
-            </Box>
-          </form>
+            </form>
+          </div>
       }
     </LayoutDashboard>
   )

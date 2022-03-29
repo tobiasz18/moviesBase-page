@@ -14,7 +14,9 @@ import {
   UPDATE_STATUS_ARTICLE,
   CHANGE_EMAIL_USER,
   UPDATE_PROFILE,
-  ACCOUNT_VERIFY
+  ACCOUNT_VERIFY,
+  GET_CATEGORIES,
+  ADD_CATEGORY
 } from "../types";
 
 //----- ARTICLES -----//
@@ -91,6 +93,18 @@ export const updateProfile = (data) => ({
 export const accountVerify = () => ({
   type: ACCOUNT_VERIFY
 })
+
+//----- CATEGORIES -----//
+
+export const getCategories = (data) => ({
+  type: GET_CATEGORIES,
+  payload: data
+})
+export const addCategory = (data) => ({
+  type: ADD_CATEGORY,
+  payload: data
+})
+
 
 //----- SITE -----//
 

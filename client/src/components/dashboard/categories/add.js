@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import LayoutDashboard from '../../../hoc/LayoutDashboard';
+import React  from 'react';
 import { useDispatch } from 'react-redux'
 
 import { useFormik } from 'formik'
-
 import * as Yup from 'yup'
 
 import { TextField, Button } from '@mui/material'
 import { FormGroup } from '@mui/material';
-
-
+import { addCategoryAsync } from '../../../store/actions/categories_actions';
 
 const Add = () => {
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -20,6 +18,7 @@ const Add = () => {
       name: Yup.string().required("The name is required")
     }),
     onSubmit: (values, { resetForm }) => {
+      dispatch(addCategoryAsync(values))
       resetForm()
     }
   })

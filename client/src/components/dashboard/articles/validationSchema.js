@@ -35,5 +35,8 @@ export const validationSchema = yup.object({
     .required('Title is required'),
   status: yup
     .string()
-    .required('Sorry the status is required')
+    .required('Sorry the status is required'),
+  category: yup
+    .string()
+    .required('Sorry the category is required')
 })

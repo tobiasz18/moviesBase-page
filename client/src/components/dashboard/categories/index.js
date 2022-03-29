@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import LayoutDashboard from '../../../hoc/LayoutDashboard';
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from '@mui/system';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-import Add from './add';
 
 import Grid from '@mui/material/Grid';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { getCategoriesAsync } from '../../../store/actions/categories_actions';
+
+import Add from './add'; // Add Category Component
 
 const Root = styled('div')`
   table {
@@ -36,22 +35,21 @@ const Root = styled('div')`
 `;
 
 
-const useStyles = makeStyles((theme) => ({
-  box: {
-    
-  }
-}))
-
 const Categories = () => {
-  const classes = useStyles();
   const matches = useMediaQuery('(max-width:600px)');
 
+  const categories = useSelector((state) => state.categories.categories)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCategoriesAsync())
+  }, [dispatch])
 
   return (
     <LayoutDashboard section="Categories">
       <Grid container spacing={2}>
 
-        <Grid item xs={matches ? 12 : 4 }>
+        <Grid item xs={matches ? 12 : 4}>
           <Root>
             <Table aria-label="simple table">
               <TableHead>
@@ -60,12 +58,13 @@ const Categories = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow >
-                  <TableCell align="left">Action</TableCell>
-                </TableRow>
-                <TableRow >
-                  <TableCell align="right">Comedy</TableCell>
-                </TableRow>
+
+                {categories && categories.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="left">{item.name}</TableCell>
+                  </TableRow>
+                ))}
+
               </TableBody>
             </Table>
           </Root>

@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 require('dotenv').config();
 
+const Schema = mongoose.Schema;
+
 const articleSchema = mongoose.Schema({
   title: {
     type: String,
@@ -43,6 +45,11 @@ const articleSchema = mongoose.Schema({
     enum: ['draft', 'public'],
     default: 'draft',
     index: true
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true
   },
   date: {
     type: Date,
