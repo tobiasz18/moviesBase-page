@@ -7,7 +7,8 @@ export const initialValues = {
   score: '',
   director: '',
   actors: [],
-  status: ''
+  status: '',
+  category: ''
 }
 
 export const validationSchema = yup.object({

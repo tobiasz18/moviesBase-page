@@ -24,15 +24,17 @@ import Wysiwyg from '../../../utils/form/wysiwyg'
 import { getAminArticleById, updateArticleAsync } from '../../../store/actions/articles_actions'
 import { clearCurrentArticle } from '../../../store/actions'
 import LayoutDashboard from '../../../hoc/LayoutDashboard'
+import { getCategoriesAsync } from '../../../store/actions/categories_actions'
 
 const EditArticle = (props) => {
   const [editorBlur, setEditorBlur] = useState(false)
   const [isSubmiting, setSubmiting] = useState(false) // set or remove Loadeer from 
   const notifications = useSelector((state) => state.notifications)
+  const categories = useSelector((state) => state.categories.categories)
   const [initValue, setInitValue] = useState(initialValues)
   const actorsValue = useRef('')
   const classes = useStyles()
-
+ 
   const dispatch = useDispatch()
 
   // EDIT ARTICLE COMPONENT ↓
@@ -47,6 +49,7 @@ const EditArticle = (props) => {
     onSubmit: (values) => {
       setSubmiting(true) // set loader 
       dispatch(updateArticleAsync(values, props.match.params.id))
+      console.log(values, 'val')
     },
   })
 
@@ -73,7 +76,7 @@ const EditArticle = (props) => {
   // EDIT ↓
   useEffect(() => {
     dispatch(getAminArticleById(props.match.params.id))
-
+    dispatch(getCategoriesAsync())
   }, [dispatch, props.match.params])
 
   useEffect(() => {
@@ -248,6 +251,31 @@ const EditArticle = (props) => {
               {formik.errors.status && formik.touched.status ?
                 <FormHelperText error={true}>
                   {formik.errors.status}
+                </FormHelperText>
+                : null}
+            </FormControl>
+            {/*----------  ↓   Select a Category  ↓   ----------*/}
+            <FormControl variant="outlined" className={classes.formControl}>
+              <Typography gutterBottom={true} variant="subtitle2" component="h4">
+                Category:
+              </Typography>
+              <Select
+                name="category"
+                className={classes.selectEmpty}
+                {...formik.getFieldProps('category')}
+                error={formik.errors.category && formik.touched.category ? true : false}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {categories && categories.map((item, key) => (
+                  <MenuItem key={`${key + item}`} value={item._id}>{item.name}</MenuItem>
+                ))}
+
+              </Select>
+              {formik.errors.category && formik.touched.category ?
+                <FormHelperText error={true}>
+                  {formik.errors.category}
                 </FormHelperText>
                 : null}
             </FormControl>
