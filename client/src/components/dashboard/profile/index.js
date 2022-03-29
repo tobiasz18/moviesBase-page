@@ -4,7 +4,7 @@ import AuthProfile from './auth'
 import UserProfile from './profile'
 
 const Profile = () => {
-
+  {console.log("CHild")}
   return (
     <LayoutDashboard section="My Profile">
       <AuthProfile />

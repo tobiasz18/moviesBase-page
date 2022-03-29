@@ -25,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     fontWeight: 500,
-    textAlign: 'center'
+ 
   },
 }));
 
@@ -38,6 +38,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+const tableToolsStyle = {
+  display: 'grid',
+  gridTemplateColumns:'33% 33% 33%',
+  minWidth: '350px'
+
+}
 
 const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus, editArticle }) => {
   const [page, setpage] = useState(1)
@@ -70,13 +77,13 @@ const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus, edit
                       <StyledTableCell style={{ textAlign: 'left' }} align="left">{row.title}</StyledTableCell>
                       <StyledTableCell align="left">{row.score}</StyledTableCell>
                       <StyledTableCell align="left">
-                        <Stack style={{ float: 'right' }} direction="row" spacing={1}>
-                          <Button      
-                            variant="contained" 
+                        <Stack sx={tableToolsStyle} direction="row" spacing={1}>
+                          <Button
+                            variant="contained"
                             color="secondary"
                             onClick={() => editArticle(row._id)}
                           >Edit</Button>
-                          <Button 
+                          <Button
                             variant="contained"
                             onClick={() => {
                               updateStatus(row.status, row._id)
@@ -86,7 +93,7 @@ const PaginateComponent = ({ arts, changePage, deleteArticle, updateStatus, edit
                           </Button>
                           <Button onClick={() => {
                             window.confirm("Are you sure you wish to delete this article?") &&
-                            deleteArticle(row._id)
+                              deleteArticle(row._id)
                           }} variant="contained" color="error">
                             Remove
                           </Button>

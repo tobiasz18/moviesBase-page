@@ -6,7 +6,7 @@ export const showToast = (type, msg) => {
   switch (type) {
     case 'SUCCESS':
       toast.success(msg, {
-        position: toast.POSITION.BOTTOM_RIGHT    
+        position: toast.POSITION.BOTTOM_RIGHT
       })
       break;
     case 'ERROR':
@@ -29,9 +29,9 @@ export const showToast = (type, msg) => {
   }
 }
 
-export const getTokenCookie = () => cookie.load('x-access-token')  
-export const removeTokenCookie = () => cookie.remove('x-access-token', {path: '/'})
+export const getTokenCookie = () => cookie.load('x-access-token')
+export const removeTokenCookie = () => cookie.remove('x-access-token', { path: '/' })
 export const getAuthHeader = () => {
-  return  { headers: { 'x-access-token': getTokenCookie() }}
+  return { headers: { 'x-access-token': getTokenCookie() } }
 }
 

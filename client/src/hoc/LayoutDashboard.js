@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
-
   },
   drawer: {
     flexShrink: 0,
