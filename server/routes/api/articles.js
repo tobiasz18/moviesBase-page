@@ -161,5 +161,36 @@ router.route('/categories')
 
 
 
+/** SEARCH ARTICLES USER */
+router.route('/user/search')
+  .post(async (req, res) => {
+    try {
+      if (req.body.keywords === '') {
+        return res.status(400).json({ message: 'no empty search' })
+      }
+
+      const re = new RegExp(`${req.body.keywords}`, 'gi')
+      let aggQuery = Article.aggregate([
+        { $match: { status: 'public' } },
+        { $match: { title: {$regex: re}}}
+      ])
+      console.log('aggr', aggQuery)
+      const limit = req.body.limit ? req.body.limit : 5;
+    // //  const aggQuery = Article.aggregate();
+      const options = {
+        page: req.body.page,
+        sort: { _id: 'desc' },
+        limit
+      }
+      const articles = await Article.aggregatePaginate(aggQuery, options);
+      res.status(200).json(articles);
+
+
+    } catch (error) {
+      res.status(400).json({ message: 'Error search not found', error: error });
+
+    }
+  })
+
 
 module.exports = router;
